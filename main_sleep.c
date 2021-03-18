@@ -30,11 +30,14 @@ char cycle = false;
 char drdy = false;
 volatile char status = 0;
 
+char byte1 = 0;
+char byte2 = 0;
+
 void __interrupt (high_priority) high_ISR(void){
     
     if(INTCONbits.IOCIF == 1){    // In case of IOC interrupt
         cycle = true;
-        //LATAbits.LA1 = 1;
+        LATAbits.LA3 = 1;
         INTCONbits.IOCIF = 0; // Clear the flag
     }
     
@@ -52,38 +55,47 @@ void main(void) {
     init_chip();
     spi_init();
     TRISAbits.RA1 = 0;
-    LATAbits.LA1 = 1;
-    
+    TRISAbits.RA2 = 0;
+    TRISAbits.RA3 = 0;
+    TRISCbits.RC1 = 0;
+    TRISCbits.RC2 = 0;
+        
     // Init MAX for temp conversion
     status = init_MAX31856();           // assign result to status to avoid being optimized out
-    
     volatile short int temp = read_MAX31856_temp();
-    if(temp == 0)  LATAbits.LA2 = 1;
-    if(temp > 0)  LATAbits.LA3 = 1;
+    //if(temp == 0)  LATAbits.LA2 = 1;
+    //if(temp == 0)  LATAbits.LA3 = 1;
+    if(temp < 30)  LATCbits.LC1 = 1;
+    if(temp > 10)  LATCbits.LC2 = 1;
     
     init_interrupts();
     
-    _delay(300000);
+    _delay(30000000);
     
     LATAbits.LA1 = 1;
     
-    _delay(100000);
+    _delay(10000000);
     
-    //nap();  // go to sleep
+    nap();  // go to sleep
      
     
     while(1){
         //spi_send(0x0F);
-        /*if(cycle){
+        if(cycle){
+            // Init SPI again
+            spi_init();
             // Init MAX for temp conversion
             status = init_MAX31856();           // assign result to status to avoid being optimized out
         
-            temp = read_MAX31856_temp();
-            if(temp < 30)  LATAbits.LA2 = 1;
-            if(temp > 15)  LATAbits.LA3 = 1;
+            temp = read_MAX31856_temp();            
+            if(temp < 30)  LATCbits.LC1 = 1;
+            if(temp > 10)  LATCbits.LC2 = 1;
             LATAbits.LA1 = 1;
             cycle = false;
-            _delay(200000);
+            _delay(20000000);
+            
+            // set wake-up
+            init_interrupts();
             nap();
         }
         
@@ -105,7 +117,8 @@ void init_chip(){
 }
 
 void init_interrupts(){
-    TRISBbits.RB5 = 1;  // interrupt pin
+    TRISBbits.RB5 = 1;      // interrupt pin
+    ANSELBbits.ANSB5 = 0;   // enable dig port
     
     INTCONbits.GIE = 0;     // disable interrupts
     RCONbits.IPEN = 1;      // enable interrupt priorities
@@ -118,7 +131,7 @@ void init_interrupts(){
     INTCONbits.GIE = 1;     // enable interrupts
 }
 
-/*void init_TMR0(){   // nog niet getest!!!
+/*void init_TMR0(){   // nog yet tested!!! + doesn't work in deep sleep(all clks off)
     INTCONbits.GIE = 0;     // disable interrupts
     INTCONbits.TMR0IE = 1;  // enable tmr0 interrupts
     RCONbits.IPEN = 1;      // enable interrupt priorities
@@ -142,6 +155,10 @@ void spi_init(){
     TRISBbits.RB3 = 0;      // SDO pin
     TRISBbits.RB4 = 1;      // DRDY pin ==> input
     //TRISCbits.RC7 = 0;      // SDO pin ==> output
+    
+    ANSELAbits.ANSA5 = 0;
+    ANSELB = 0x24;
+    ANSELCbits.ANSC7 = 0;
     
     LATAbits.LA5 = 1;       // CS = active low
     
@@ -174,16 +191,19 @@ char spi_read(){
 
 short int read_MAX31856_temp(){  
 // read first reg
-    while(PORTBbits.RB4);       // Wait for dataready 
+    while(PORTBbits.RB4)LATAbits.LA2 = 1;       // Wait for dataready 
+LATAbits.LA2 = 0;    
     spi_send(0x0C);   
     while(!drdy);               // Wait for transmission to complete
     drdy = false;
     char value = spi_read();    // dummy read
+    
 // bits are shifted so byte2 only arrives now!!!    
     spi_send(0x0C);   
     while(!drdy);               // Wait for transmission to complete
     drdy = false;
-    char byte2 = spi_read();
+    //char byte2 = spi_read();
+    byte2 = spi_read();
     
 // read second reg
     spi_send(0x0D);   
@@ -195,7 +215,8 @@ short int read_MAX31856_temp(){
     spi_send(0x0D);   
     while(!drdy);               // Wait for transmission to complete
     drdy = false;
-    char byte1 = spi_read();
+    //char byte1 = spi_read();
+    byte1 = spi_read();
     
     LATAbits.LA5 = 1;           // CS to high
     
