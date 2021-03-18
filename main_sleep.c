@@ -24,14 +24,19 @@ char spi_read();
 short int read_MAX31856_temp();
 short int convertTemp(char byte2, char byte1);
 char init_MAX31856();
+void UART_TX_Init();
+void UART_Write(char data);
 
 /*Global variables*/
 char cycle = false;
 char drdy = false;
 volatile char status = 0;
 
-char byte1 = 0;
-char byte2 = 0;
+volatile char byte0 = 0;     // low byte(temp)
+volatile char byte1 = 0;     // middle byte(temp)
+volatile char byte2 = 0;     // high byte(temp)
+volatile char value = 0;
+volatile char value2 = 0;
 
 void __interrupt (high_priority) high_ISR(void){
     
@@ -62,21 +67,29 @@ void main(void) {
         
     // Init MAX for temp conversion
     status = init_MAX31856();           // assign result to status to avoid being optimized out
+    // Read the temperature from the MAX
     volatile short int temp = read_MAX31856_temp();
-    //if(temp == 0)  LATAbits.LA2 = 1;
-    //if(temp == 0)  LATAbits.LA3 = 1;
     if(temp < 30)  LATCbits.LC1 = 1;
     if(temp > 10)  LATCbits.LC2 = 1;
     
+    // Init UART communication
+    UART_TX_Init();
+    
+    // Send the temperature over UART
+    UART_Write(byte2);  // send MSB
+    UART_Write(byte1);  // send LSB
+    
+    // Set the wake up
     init_interrupts();
     
-    _delay(30000000);
+    _delay(30000000);   // wait a bit so it's better visual for the eye
     
     LATAbits.LA1 = 1;
     
-    _delay(10000000);
+    _delay(10000000);   // wait a bit so it's better visual for the eye
     
-    nap();  // go to sleep
+    // Go to sleep
+    nap();
      
     
     while(1){
@@ -87,15 +100,27 @@ void main(void) {
             // Init MAX for temp conversion
             status = init_MAX31856();           // assign result to status to avoid being optimized out
         
+            // Read the temperature from the MAX
             temp = read_MAX31856_temp();            
             if(temp < 30)  LATCbits.LC1 = 1;
             if(temp > 10)  LATCbits.LC2 = 1;
             LATAbits.LA1 = 1;
-            cycle = false;
-            _delay(20000000);
             
-            // set wake-up
+            // Init UART communication
+            UART_TX_Init();
+
+            // Send the temperature over UART
+            UART_Write(byte2);  // send MSB
+            UART_Write(byte1);  // send LSB
+            
+            // Reset the flag
+            cycle = false;
+            
+            _delay(20000000);   // wait a bit so it's better visual for the eye
+            
+            // Set wake-up
             init_interrupts();
+            // Go to sleep
             nap();
         }
         
@@ -158,7 +183,7 @@ void spi_init(){
     
     ANSELAbits.ANSA5 = 0;
     ANSELB = 0x24;
-    ANSELCbits.ANSC7 = 0;
+    //ANSELCbits.ANSC7 = 0;
     
     LATAbits.LA5 = 1;       // CS = active low
     
@@ -196,32 +221,29 @@ LATAbits.LA2 = 0;
     spi_send(0x0C);   
     while(!drdy);               // Wait for transmission to complete
     drdy = false;
-    char value = spi_read();    // dummy read
-    
+    value = spi_read();         // dummy read
+     
 // bits are shifted so byte2 only arrives now!!!    
-    spi_send(0x0C);   
+    spi_send(0xFF);             // dummy send to shift data
     while(!drdy);               // Wait for transmission to complete
     drdy = false;
-    //char byte2 = spi_read();
     byte2 = spi_read();
     
 // read second reg
-    spi_send(0x0D);   
+    spi_send(0xFF);             // dummy send to shift data
     while(!drdy);               // Wait for transmission to complete
     drdy = false;
-    value = spi_read();         // dummy read
+    byte1 = spi_read();         // dummy read
 
-// bits are shifted so byte1 only arrives now!!!    
-    spi_send(0x0D);   
+// read third reg   
+    spi_send(0xFF);             // dummy send to shift data
     while(!drdy);               // Wait for transmission to complete
     drdy = false;
-    //char byte1 = spi_read();
-    byte1 = spi_read();
+    byte0 = spi_read();
     
     LATAbits.LA5 = 1;           // CS to high
     
     return convertTemp(byte2, byte1);
-    
 }
 
 short int convertTemp(char byte2, char byte1){
@@ -259,4 +281,24 @@ char init_MAX31856(){
         
     LATAbits.LA5 = 1;               // CS to high
     return 1;
+}
+
+void UART_TX_Init(void)
+{
+  TXSTA1bits.SYNC = 0;
+  RCSTA1bits.SPEN = 1;
+  TXSTA1bits.BRGH = 0; // Set For High-Speed Baud Rate
+  BAUDCON1bits.BRG16 = 0;
+  SPBRG1 = 25; // Set The Baud Rate To Be 9600 bps, will change to be 115200 later on
+  
+  
+  // Set The RX-TX Pins to be in UART mode 
+  TRISCbits.RC6 = 1; 
+  TRISCbits.RC7 = 1; 
+  TXSTA1bits.TXEN = 1; // Enable UART Transmission
+}
+void UART_Write(char data)
+{
+  while(!TXSTA1bits.TRMT);  // While TSR register is not empty 
+  TXREG1 = data;            // Load the data to the transmit buffer
 }
