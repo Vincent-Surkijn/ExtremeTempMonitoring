@@ -32,11 +32,10 @@ char cycle = false;
 char drdy = false;
 volatile char status = 0;
 
-volatile char byte0 = 0;     // low byte(temp)
-volatile char byte1 = 0;     // middle byte(temp)
-volatile char byte2 = 0;     // high byte(temp)
-volatile char value = 0;
-volatile char value2 = 0;
+volatile char byte0 = 0;    // low byte(temp)
+volatile char byte1 = 0;    // middle byte(temp)
+volatile char byte2 = 0;    // high byte(temp)
+volatile char value = 0;    // dummy value
 
 void __interrupt (high_priority) high_ISR(void){
     
