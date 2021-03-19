@@ -59,6 +59,8 @@ void main(void) {
     SYSTEM_Initialize();
     init_chip();
     spi_init();
+    
+    // Initialize all status LED outputs
     TRISAbits.RA1 = 0;
     TRISAbits.RA2 = 0;
     TRISAbits.RA3 = 0;
@@ -69,6 +71,7 @@ void main(void) {
     status = init_MAX31856();           // assign result to status to avoid being optimized out
     // Read the temperature from the MAX
     volatile short int temp = read_MAX31856_temp();
+    // Light up some status LEDs
     if(temp < 30)  LATCbits.LC1 = 1;
     if(temp > 10)  LATCbits.LC2 = 1;
     
@@ -93,15 +96,15 @@ void main(void) {
      
     
     while(1){
-        //spi_send(0x0F);
-        if(cycle){
+        if(cycle){  // Cycle once when an IOC is fired
             // Init SPI again
             spi_init();
             // Init MAX for temp conversion
             status = init_MAX31856();           // assign result to status to avoid being optimized out
         
             // Read the temperature from the MAX
-            temp = read_MAX31856_temp();            
+            temp = read_MAX31856_temp();  
+            // Light up some status LEDs
             if(temp < 30)  LATCbits.LC1 = 1;
             if(temp > 10)  LATCbits.LC2 = 1;
             LATAbits.LA1 = 1;
@@ -122,13 +125,7 @@ void main(void) {
             init_interrupts();
             // Go to sleep
             nap();
-        }
-        
-        /*LATAbits.LA1 = 1;
-        _delay(100000);
-        LATAbits.LA1 = 0;
-        _delay(100000);*/
-        
+        }       
     }
     return;
 }
@@ -156,20 +153,12 @@ void init_interrupts(){
     INTCONbits.GIE = 1;     // enable interrupts
 }
 
-/*void init_TMR0(){   // nog yet tested!!! + doesn't work in deep sleep(all clks off)
-    INTCONbits.GIE = 0;     // disable interrupts
-    INTCONbits.TMR0IE = 1;  // enable tmr0 interrupts
-    RCONbits.IPEN = 1;      // enable interrupt priorities
-    INTCON2bits.TMR0IP = 1; // interrupt priority = high
-    T0CON = 0b0001 0111     // Fosc/4, prescaler = 256  --> 4.2s
-}*/
-
 void nap(){
 // clear all pins    
     LATA = 0;
     LATB = 0;
     LATC = 0;
-    
+// go to sleep    
     SLEEP();
 }
 
@@ -179,11 +168,10 @@ void spi_init(){
     TRISBbits.RB1 = 0;      // SCK pin ==> output because this is Master
     TRISBbits.RB3 = 0;      // SDO pin
     TRISBbits.RB4 = 1;      // DRDY pin ==> input
-    //TRISCbits.RC7 = 0;      // SDO pin ==> output
     
+    // Reset ANSEL bits to enable digital ports
     ANSELAbits.ANSA5 = 0;
     ANSELB = 0x24;
-    //ANSELCbits.ANSC7 = 0;
     
     LATAbits.LA5 = 1;       // CS = active low
     
@@ -200,9 +188,6 @@ void spi_init(){
     
     SSP1CON1bits.SSPEN = 1; // Enable SPI
     INTCONbits.GIE = 1;     // Enable interrupts
-    
-    // Confirm that SPI is enabled by turning on LED at LA1
-    //LATAbits.LA1 = SSP1CON1bits.SSPEN;
 }
 
 void spi_send(char data){
@@ -216,8 +201,7 @@ char spi_read(){
 
 short int read_MAX31856_temp(){  
 // read first reg
-    while(PORTBbits.RB4)LATAbits.LA2 = 1;       // Wait for dataready 
-LATAbits.LA2 = 0;    
+    while(PORTBbits.RB4);       // Wait for dataready     
     spi_send(0x0C);   
     while(!drdy);               // Wait for transmission to complete
     drdy = false;
@@ -243,7 +227,7 @@ LATAbits.LA2 = 0;
     
     LATAbits.LA5 = 1;           // CS to high
     
-    return convertTemp(byte2, byte1);
+    return convertTemp(byte2, byte1);   // bytes have to be converted to right format
 }
 
 short int convertTemp(char byte2, char byte1){
@@ -283,22 +267,22 @@ char init_MAX31856(){
     return 1;
 }
 
-void UART_TX_Init(void)
-{
-  TXSTA1bits.SYNC = 0;
-  RCSTA1bits.SPEN = 1;
-  TXSTA1bits.BRGH = 0; // Set For High-Speed Baud Rate
-  BAUDCON1bits.BRG16 = 0;
-  SPBRG1 = 25; // Set The Baud Rate To Be 9600 bps, will change to be 115200 later on
+void UART_TX_Init(void){
+  TXSTA1bits.SYNC = 0;              // Asynchronous mode
+  RCSTA1bits.SPEN = 1;              // Enable Serial port
+  TXSTA1bits.BRGH = 0;              // Set For High-Speed Baud Rate
+  BAUDCON1bits.BRG16 = 0;           // 8-bit Baud Rate Generator
+  SPBRG1 = 25;                      // Set The Baud Rate To Be 9600 bps
   
   
   // Set The RX-TX Pins to be in UART mode 
   TRISCbits.RC6 = 1; 
   TRISCbits.RC7 = 1; 
+  
   TXSTA1bits.TXEN = 1; // Enable UART Transmission
 }
-void UART_Write(char data)
-{
+
+void UART_Write(char data){
   while(!TXSTA1bits.TRMT);  // While TSR register is not empty 
   TXREG1 = data;            // Load the data to the transmit buffer
 }
