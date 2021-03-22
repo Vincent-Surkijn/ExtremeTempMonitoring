@@ -1,0 +1,168 @@
+*{
+    margin: 0;
+    padding: 0;}
+
+.navbar
+{
+    background-image: linear-gradient(to right,#FF7F50,#B8860B);
+    padding:1%;
+
+
+
+}
+.navbar-nav{
+    margin-inline:2%
+
+}
+.nav-item {
+    border: black;
+    border-style:solid;
+    margin-right:2em;
+;
+
+}
+.nav-link{
+    color: black;
+
+
+}
+
+#form_title{
+    border:black;
+    border-style:solid;
+    margin-top: 2em;
+
+
+
+}
+
+#photo_fire{
+    float:right;
+
+}
+#text_form{
+    text-align: center;
+
+
+}
+#form_row {
+    text-align:center;
+    background-image: linear-gradient(to right,#FF7F50,#B8860B);
+    margin-top:2em;
+
+
+
+}
+#previous_sessions_nr{
+    border:black;
+    border-style:solid;
+
+
+}
+#nr_label{
+    font-weight: bolder;
+
+
+}
+#form_itself{
+    border:black;
+    border-type:solid;
+    font-size: large;
+
+
+
+
+}
+#form_button{
+    margin-top: 2em;
+
+
+}
+
+
+
+#row_current_session{
+    margin-top: 3em;
+    margin-bottom: 3em;
+
+
+
+}
+.specified_session{
+    border-left: black;
+    border-style: solid;
+}
+.temperature_value{
+    border-style:solid;
+    background-color: whitesmoke;
+    color: black;
+    padding-left:0.1%;
+    padding-right:0.1% ;
+    margin-top: 50%;
+
+
+}
+.col-md-10{
+    justify-content: center;
+    align-content: center;
+
+
+}
+.col-md-2 {
+    justify-content: center;
+    background-color: darkgray;
+    border: solid;
+    border-color: black;
+    padding-bottom: 3%;
+}
+
+#title_graph{
+    background-image: linear-gradient(to right,#FF7F50,#B8860B);
+    margin:2em;
+
+
+}
+
+#graph_title{
+    font-weight: bolder;
+
+
+
+}
+#arrow{
+    background-size: 0.6% 0.5%;
+
+
+}
+#form_row2{
+    text-align:center;
+    background-image: linear-gradient(to right,#FF7F50,#B8860B);
+    margin-top:2em;
+
+
+}
+#form_itself2{
+    border:black;
+    border-type:solid;
+    font-size: large;
+
+
+}
+#nr_label2{
+    font-weight: bolder;
+
+
+}
+#sensor_nr{
+    border:black;
+    border-style:solid;
+
+
+}
+
+#footer{
+    text-align: center;
+    background-color: darkgray;
+    margin-top: 4em;
+    padding:2em;}
+

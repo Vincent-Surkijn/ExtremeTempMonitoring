@@ -1,0 +1,62 @@
+#head-row{
+    background-image: linear-gradient(to right,#FF7F50,#B8860B);
+    text-align: center;
+    border-style: solid;
+    border-color: black;
+
+
+
+}
+
+#head-text{
+    border-style: solid;
+    border-color: black;
+
+
+}
+#video {
+  min-width:100%;
+    min-height: 100%;
+
+}
+
+.content{
+    ;
+    color: #f1f1f1;
+    width: 100%;
+   text-align: center;
+    align-items:center;
+    width:100%;
+    z-index:1 ;
+    position: absolute;
+    left: 50%;
+    top: 40%;
+    transform: translate(-50%, -50%);
+    font-family: "Reem Kufi";
+}
+
+#button_start{
+margin-top:3em;
+
+
+
+}
+
+
+
+
+#video_container{
+position:relative;
+
+
+}
+
+
+#footer{
+    text-align: center;
+    background-color: darkgray;
+    padding:2em;
+
+
+
+}

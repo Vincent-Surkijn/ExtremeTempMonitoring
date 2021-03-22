@@ -1,0 +1,132 @@
+*{
+   margin: 0;
+    padding: 0;
+
+
+}
+
+.body{
+    font-family: 'Open Sans', sans-serif;
+
+}
+.navbar
+{
+    background-image: linear-gradient(to right,#FF7F50,#B8860B);
+    padding:1%;
+
+
+
+}
+.navbar-nav{
+    margin-inline:2%
+
+}
+.nav-item {
+   border: black;
+    border-style:solid;
+    margin-right:2em;
+     ;
+
+}
+.nav-link{
+    color: black;
+
+
+}
+.text-center{
+    color:black;
+    margin-bottom: 2%;
+    border-bottom:brown ;
+    margin-top:4%;
+
+}
+.temperature_value{
+border-style:solid;
+    background-color: whitesmoke;
+    color: black;
+    padding-left:0.1%;
+    padding-right:0.1% ;
+    margin-top: 50%;
+
+
+}
+.col-md-10{
+    justify-content: center;
+    align-content: center;
+
+
+}
+.col-md-2{
+    justify-content: center;
+    background-color: darkgray;
+    border:solid;
+    border-color:black;
+    padding-bottom:3%;
+
+
+}
+#outside1{
+    background-color: white;
+
+}
+#outside2{
+    background-color: white;
+
+
+}
+#legend{
+   border-style:solid;
+    background-image: linear-gradient(to right,#FF7F50,#B8860B);
+    margin-top:5em;
+    padding:0.5em;
+
+
+}
+
+#session{
+    border-style:solid;
+    background-image: linear-gradient(to right,#FF7F50,#B8860B);
+    margin-top:5em;
+    padding:0.5em;
+
+}
+
+.outer{
+text-align: center;
+
+}
+
+.button{
+  display:inline-block;
+    border-style:solid;
+    margin-bottom: 2em;
+
+}
+.btn {
+   margin:30px;
+
+
+}
+
+#legend{
+    text-align: center;
+
+}
+#image_legend{
+    max-height: 75%;
+
+}
+#title_legend{
+    border-style:solid;
+    border-color:black;
+
+}
+
+
+#footer{
+    text-align: center;
+    background-color: darkgray;
+    margin-top: 4em;
+    padding:2em ;
+
+}
