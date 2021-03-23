@@ -15,8 +15,11 @@
 
 }
 #video {
-  min-width:100%;
-    min-height: 100%;
+ width:auto;
+    height:auto;
+
+    ;
+
 
 }
 
@@ -26,8 +29,8 @@
     width: 100%;
    text-align: center;
     align-items:center;
-    width:100%;
-    z-index:1 ;
+    z-index: 1;
+
     position: absolute;
     left: 50%;
     top: 40%;
