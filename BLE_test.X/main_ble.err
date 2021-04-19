@@ -1,0 +1,7 @@
+Error[1027] D:\School\Unief\Jaar_3\Tweede_semester\EE5\BLE_test.X\main_ble.c 21 : unable to locate 'xc.h'
+Error[1027] D:\School\Unief\Jaar_3\Tweede_semester\EE5\BLE_test.X\mcc_generated_files\mcc.h 49 : unable to locate 'xc.h'
+Error[1027] D:\School\Unief\Jaar_3\Tweede_semester\EE5\BLE_test.X\mcc_generated_files\mcc.h 50 : unable to locate 'device_config.h'
+Error[1027] D:\School\Unief\Jaar_3\Tweede_semester\EE5\BLE_test.X\mcc_generated_files\mcc.h 51 : unable to locate 'pin_manager.h'
+Error[1027] D:\School\Unief\Jaar_3\Tweede_semester\EE5\BLE_test.X\mcc_generated_files\mcc.h 52 : unable to locate 'stdint.h'
+Error[1027] D:\School\Unief\Jaar_3\Tweede_semester\EE5\BLE_test.X\mcc_generated_files\mcc.h 53 : unable to locate 'stdbool.h'
+Error[1027] D:\School\Unief\Jaar_3\Tweede_semester\EE5\BLE_test.X\mcc_generated_files\mcc.h 54 : unable to locate 'conio.h'
