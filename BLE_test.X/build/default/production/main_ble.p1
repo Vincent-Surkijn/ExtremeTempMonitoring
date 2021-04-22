@@ -72,8 +72,8 @@ Version 4.0 HI-TECH Software Intermediate Code
 "69 ./mcc_generated_files/mcc.h
 [; ;./mcc_generated_files/mcc.h: 69: void SYSTEM_Initialize(void);
 [v _SYSTEM_Initialize `(v ~T0 @X0 0 ef ]
-"41 main_ble.c
-[; ;main_ble.c: 41: void UART_Init(void);
+"44 main_ble.c
+[; ;main_ble.c: 44: void UART_Init(void);
 [v _UART_Init `(v ~T0 @X0 0 ef ]
 [v F4553 `(v ~T0 @X0 1 tf1`ul ]
 "183 C:\Program Files (x86)\Microchip\xc8\v2.05\pic\include\pic18.h
@@ -124,11 +124,11 @@ Version 4.0 HI-TECH Software Intermediate Code
 "4629
 [; ;C:\Program Files (x86)\Microchip\xc8\v2.05\pic\include\pic18f25k50.h: 4629: extern volatile TRISCbits_t TRISCbits __attribute__((address(0xF94)));
 [v _TRISCbits `VS190 ~T0 @X0 0 e@3988 ]
-"44 main_ble.c
-[; ;main_ble.c: 44: char RN4870_changeName(char *name);
-[v _RN4870_changeName `(uc ~T0 @X0 0 ef1`*uc ]
-"45
-[; ;main_ble.c: 45: int packetHandler();
+"46 main_ble.c
+[; ;main_ble.c: 46: void UART_Write_String(char *buffer);
+[v _UART_Write_String `(v ~T0 @X0 0 ef1`*uc ]
+"48
+[; ;main_ble.c: 48: int packetHandler();
 [v _packetHandler `(i ~T0 @X0 0 e? ]
 "3590 C:\Program Files (x86)\Microchip\xc8\v2.05\pic\include\pic18f25k50.h
 [; ;C:\Program Files (x86)\Microchip\xc8\v2.05\pic\include\pic18f25k50.h: 3590:     struct {
@@ -358,6 +358,11 @@ Version 4.0 HI-TECH Software Intermediate Code
 "29
 [; ;C:\Program Files (x86)\Microchip\xc8\v2.05\pic\include\c99\string.h: 29: void *memset (void *, int, size_t);
 [v _memset `(*v ~T0 @X0 0 ef3`*v`i`ui ]
+"115 C:\Program Files (x86)\Microchip\xc8\v2.05\pic\include\c99\stdio.h
+[v _sprintf `(i ~T0 @X0 0 e1v`*uc`*Cuc ]
+"36 C:\Program Files (x86)\Microchip\xc8\v2.05\pic\include\c99\stdlib.h
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.05\pic\include\c99\stdlib.h: 36: long strtol (const char *restrict, char **restrict, int);
+[v _strtol `(l ~T0 @X0 0 ef3`*Cuc`**uc`i ]
 "54 C:\Program Files (x86)\Microchip\xc8\v2.05\pic\include\pic18f25k50.h
 [; ;C:\Program Files (x86)\Microchip\xc8\v2.05\pic\include\pic18f25k50.h: 54: __asm("SRCON1 equ 0F57h");
 [; <" SRCON1 equ 0F57h ;# ">
@@ -956,486 +961,604 @@ Version 4.0 HI-TECH Software Intermediate Code
 [; ;C:\Program Files (x86)\Microchip\xc8\v2.05\pic\include\pic18f25k50.h: 12842: __asm("TOSU equ 0FFFh");
 [; <" TOSU equ 0FFFh ;# ">
 "30 main_ble.c
-[; ;main_ble.c: 30: char UART_RX;
-[v _UART_RX `uc ~T0 @X0 1 e ]
+[; ;main_ble.c: 30: int ID = 0;
+[v _ID `i ~T0 @X0 1 e ]
+[i _ID
+-> 0 `i
+]
 "31
-[; ;main_ble.c: 31: char RX_buffer[500];
-[v _RX_buffer `uc ~T0 @X0 -> 500 `i e ]
-"32
-[; ;main_ble.c: 32: char *expected;
-[v _expected `*uc ~T0 @X0 1 e ]
+[; ;main_ble.c: 31: char name[50] = "SENSOR";
+[v _name `uc ~T0 @X0 -> 50 `i e ]
+[i _name
+:U ..
+-> 83 `c
+-> 69 `c
+-> 78 `c
+-> 83 `c
+-> 79 `c
+-> 82 `c
+-> 0 `c
+..
+]
 "33
-[; ;main_ble.c: 33: int ix = 0;
+[; ;main_ble.c: 33: char UART_RX;
+[v _UART_RX `uc ~T0 @X0 1 e ]
+"34
+[; ;main_ble.c: 34: char RX_buffer[500];
+[v _RX_buffer `uc ~T0 @X0 -> 500 `i e ]
+"35
+[; ;main_ble.c: 35: char *expected;
+[v _expected `*uc ~T0 @X0 1 e ]
+"36
+[; ;main_ble.c: 36: int ix = 0;
 [v _ix `i ~T0 @X0 1 e ]
 [i _ix
 -> 0 `i
 ]
-"34
-[; ;main_ble.c: 34: char UART_RN4870_mode = 1;
+"37
+[; ;main_ble.c: 37: char UART_RN4870_mode = 1;
 [v _UART_RN4870_mode `uc ~T0 @X0 1 e ]
 [i _UART_RN4870_mode
 -> -> 1 `i `uc
 ]
-"36
-[; ;main_ble.c: 36: char debug;
+"39
+[; ;main_ble.c: 39: char debug;
 [v _debug `uc ~T0 @X0 1 e ]
-"38
-[; ;main_ble.c: 38: char og;
+"41
+[; ;main_ble.c: 41: char og;
 [v _og `uc ~T0 @X0 1 e ]
 [v $root$_high_ISR `(v ~T0 @X0 0 e ]
-"47
-[; ;main_ble.c: 47: void __attribute__((picinterrupt(("high_priority")))) high_ISR(void)
+"50
+[; ;main_ble.c: 50: void __attribute__((picinterrupt(("high_priority")))) high_ISR(void)
 [v _high_ISR `(v ~T1 @X0 1 ef ]
-"48
-[; ;main_ble.c: 48: {
+"51
+[; ;main_ble.c: 51: {
 {
 [e :U _high_ISR ]
 [f ]
-"49
-[; ;main_ble.c: 49:    if (PIR1bits.RCIF == 1){
+"52
+[; ;main_ble.c: 52:    if (PIR1bits.RCIF == 1){
 [e $ ! == -> . . _PIR1bits 0 5 `i -> 1 `i 612  ]
 {
-"50
-[; ;main_ble.c: 50:         if(debug){
+"53
+[; ;main_ble.c: 53:         if(debug){
 [e $ ! != -> _debug `i -> 0 `i 613  ]
 {
-"51
-[; ;main_ble.c: 51:            LATAbits.LA1 = 1;
+"54
+[; ;main_ble.c: 54:            LATAbits.LA1 = 1;
 [e = . . _LATAbits 1 1 -> -> 1 `i `uc ]
-"52
-[; ;main_ble.c: 52:         }
+"55
+[; ;main_ble.c: 55:         }
 }
 [e :U 613 ]
-"53
-[; ;main_ble.c: 53:         RX_buffer[ix] = RCREG1;
+"56
+[; ;main_ble.c: 56:         RX_buffer[ix] = RCREG1;
 [e = *U + &U _RX_buffer * -> -> _ix `ui `ux -> -> # *U &U _RX_buffer `ui `ux -> _RCREG1 `uc ]
-"54
-[; ;main_ble.c: 54:         ix++;
+"57
+[; ;main_ble.c: 57:         ix++;
 [e ++ _ix -> 1 `i ]
-"60
-[; ;main_ble.c: 60:         if(UART_RN4870_mode){
+"63
+[; ;main_ble.c: 63:         if(UART_RN4870_mode){
 [e $ ! != -> _UART_RN4870_mode `i -> 0 `i 614  ]
 {
-"61
-[; ;main_ble.c: 61:             if(strstr(RX_buffer,expected)!=((void*)0)){
+"64
+[; ;main_ble.c: 64:             if(strstr(RX_buffer,expected)!=((void*)0)){
 [e $ ! != ( _strstr (2 , -> &U _RX_buffer `*Cuc -> _expected `*Cuc -> -> -> 0 `i `*v `*uc 615  ]
 {
-"62
-[; ;main_ble.c: 62:                 UART_RX = 1;
+"65
+[; ;main_ble.c: 65:                 UART_RX = 1;
 [e = _UART_RX -> -> 1 `i `uc ]
-"63
-[; ;main_ble.c: 63:                 ix = 0;
+"66
+[; ;main_ble.c: 66:                 ix = 0;
 [e = _ix -> 0 `i ]
-"64
-[; ;main_ble.c: 64:             }
+"67
+[; ;main_ble.c: 67:             }
 }
 [e :U 615 ]
-"65
-[; ;main_ble.c: 65:         }
+"68
+[; ;main_ble.c: 68:         }
 }
 [e :U 614 ]
-"68
-[; ;main_ble.c: 68:    }
+"71
+[; ;main_ble.c: 71:    }
 }
 [e :U 612 ]
-"69
-[; ;main_ble.c: 69: }
+"72
+[; ;main_ble.c: 72: }
 [e :UE 611 ]
 }
 [v $root$_main `(v ~T0 @X0 0 e ]
-"74
-[; ;main_ble.c: 74: void main(void)
+"77
+[; ;main_ble.c: 77: void main(void)
 [v _main `(v ~T0 @X0 1 ef ]
-"75
-[; ;main_ble.c: 75: {
+"78
+[; ;main_ble.c: 78: {
 {
 [e :U _main ]
 [f ]
-"76
-[; ;main_ble.c: 76:     volatile char status = 0;
+"79
+[; ;main_ble.c: 79:     volatile char status = 0;
 [v _status `Vuc ~T0 @X0 1 a ]
 [e = _status -> -> 0 `i `uc ]
-"77
-[; ;main_ble.c: 77:     og = PORTCbits.RC0;
-[e = _og -> . . _PORTCbits 0 0 `uc ]
 "80
-[; ;main_ble.c: 80:     SYSTEM_Initialize();
-[e ( _SYSTEM_Initialize ..  ]
-"81
-[; ;main_ble.c: 81:     UART_Init();
-[e ( _UART_Init ..  ]
+[; ;main_ble.c: 80:     og = PORTCbits.RC0;
+[e = _og -> . . _PORTCbits 0 0 `uc ]
 "83
-[; ;main_ble.c: 83:     _delay(100000);
-[e ( __delay (1 -> -> 100000 `l `ul ]
+[; ;main_ble.c: 83:     SYSTEM_Initialize();
+[e ( _SYSTEM_Initialize ..  ]
+"84
+[; ;main_ble.c: 84:     UART_Init();
+[e ( _UART_Init ..  ]
 "86
-[; ;main_ble.c: 86:     debug = 1;
-[e = _debug -> -> 1 `i `uc ]
-"87
-[; ;main_ble.c: 87:     TRISAbits.RA1 = 0;
-[e = . . _TRISAbits 1 1 -> -> 0 `i `uc ]
-"88
-[; ;main_ble.c: 88:     TRISBbits.RB3 = 0;
-[e = . . _TRISBbits 1 3 -> -> 0 `i `uc ]
+[; ;main_ble.c: 86:     _delay(100000);
+[e ( __delay (1 -> -> 100000 `l `ul ]
 "89
-[; ;main_ble.c: 89:     TRISBbits.RB4 = 0;
-[e = . . _TRISBbits 1 4 -> -> 0 `i `uc ]
+[; ;main_ble.c: 89:     debug = 1;
+[e = _debug -> -> 1 `i `uc ]
 "90
-[; ;main_ble.c: 90:     TRISBbits.RB5 = 0;
-[e = . . _TRISBbits 1 5 -> -> 0 `i `uc ]
+[; ;main_ble.c: 90:     TRISAbits.RA1 = 0;
+[e = . . _TRISAbits 1 1 -> -> 0 `i `uc ]
 "91
-[; ;main_ble.c: 91:     TRISCbits.RC0 = 1;
-[e = . . _TRISCbits 1 0 -> -> 1 `i `uc ]
+[; ;main_ble.c: 91:     TRISBbits.RB3 = 0;
+[e = . . _TRISBbits 1 3 -> -> 0 `i `uc ]
+"92
+[; ;main_ble.c: 92:     TRISBbits.RB4 = 0;
+[e = . . _TRISBbits 1 4 -> -> 0 `i `uc ]
 "93
-[; ;main_ble.c: 93:     status = RN4870_changeName("BLEep");
-[e = _status ( _RN4870_changeName (1 :s 1C ]
+[; ;main_ble.c: 93:     TRISBbits.RB5 = 0;
+[e = . . _TRISBbits 1 5 -> -> 0 `i `uc ]
 "94
-[; ;main_ble.c: 94:     UART_RN4870_mode = 0;
-[e = _UART_RN4870_mode -> -> 0 `i `uc ]
-"96
-[; ;main_ble.c: 96:     while (1)
-[e :U 618 ]
+[; ;main_ble.c: 94:     TRISCbits.RC0 = 1;
+[e = . . _TRISCbits 1 0 -> -> 1 `i `uc ]
 "97
-[; ;main_ble.c: 97:     {
-{
+[; ;main_ble.c: 97:     UART_Write_String("Start\n");
+[e ( _UART_Write_String (1 :s 1C ]
 "99
-[; ;main_ble.c: 99:         status = packetHandler();
-[e = _status -> ( _packetHandler ..  `uc ]
+[; ;main_ble.c: 99:     while (1)
+[e :U 618 ]
+"100
+[; ;main_ble.c: 100:     {
+{
 "102
-[; ;main_ble.c: 102:         LATBbits.LB5 = 1;
-[e = . . _LATBbits 1 5 -> -> 1 `i `uc ]
-"103
-[; ;main_ble.c: 103:         _delay(1000000);
-[e ( __delay (1 -> -> 1000000 `l `ul ]
-"104
-[; ;main_ble.c: 104:         LATBbits.LB5 = 0;
-[e = . . _LATBbits 1 5 -> -> 0 `i `uc ]
+[; ;main_ble.c: 102:         status = packetHandler();
+[e = _status -> ( _packetHandler ..  `uc ]
 "105
-[; ;main_ble.c: 105:         _delay(1000000);
-[e ( __delay (1 -> -> 1000000 `l `ul ]
+[; ;main_ble.c: 105:         LATBbits.LB5 = 1;
+[e = . . _LATBbits 1 5 -> -> 1 `i `uc ]
 "106
-[; ;main_ble.c: 106:     }
+[; ;main_ble.c: 106:         _delay(1000000);
+[e ( __delay (1 -> -> 1000000 `l `ul ]
+"107
+[; ;main_ble.c: 107:         LATBbits.LB5 = 0;
+[e = . . _LATBbits 1 5 -> -> 0 `i `uc ]
+"108
+[; ;main_ble.c: 108:         _delay(1000000);
+[e ( __delay (1 -> -> 1000000 `l `ul ]
+"109
+[; ;main_ble.c: 109:     }
 }
 [e :U 617 ]
 [e $U 618  ]
 [e :U 619 ]
-"107
-[; ;main_ble.c: 107: }
+"110
+[; ;main_ble.c: 110: }
 [e :UE 616 ]
 }
-"109
-[; ;main_ble.c: 109: void UART_Init(void){
+"112
+[; ;main_ble.c: 112: void UART_Init(void){
 [v _UART_Init `(v ~T0 @X0 1 ef ]
 {
 [e :U _UART_Init ]
 [f ]
-"110
-[; ;main_ble.c: 110:     TXSTA1bits.SYNC = 0;
+"113
+[; ;main_ble.c: 113:     TXSTA1bits.SYNC = 0;
 [e = . . _TXSTA1bits 0 4 -> -> 0 `i `uc ]
-"111
-[; ;main_ble.c: 111:     RCSTA1bits.SPEN = 1;
+"114
+[; ;main_ble.c: 114:     RCSTA1bits.SPEN = 1;
 [e = . . _RCSTA1bits 0 7 -> -> 1 `i `uc ]
-"117
-[; ;main_ble.c: 117:   TXSTA1bits.BRGH = 1;
+"120
+[; ;main_ble.c: 120:   TXSTA1bits.BRGH = 1;
 [e = . . _TXSTA1bits 0 2 -> -> 1 `i `uc ]
-"118
-[; ;main_ble.c: 118:   BAUDCON1bits.BRG16 = 0;
+"121
+[; ;main_ble.c: 121:   BAUDCON1bits.BRG16 = 0;
 [e = . . _BAUDCON1bits 0 3 -> -> 0 `i `uc ]
-"119
-[; ;main_ble.c: 119:   SPBRG1 = 25;
+"122
+[; ;main_ble.c: 122:   SPBRG1 = 25;
 [e = _SPBRG1 -> -> 25 `i `uc ]
-"126
-[; ;main_ble.c: 126:     TRISCbits.RC6 = 1;
+"129
+[; ;main_ble.c: 129:     TRISCbits.RC6 = 1;
 [e = . . _TRISCbits 1 4 -> -> 1 `i `uc ]
-"127
-[; ;main_ble.c: 127:     TRISCbits.RC7 = 1;
-[e = . . _TRISCbits 1 5 -> -> 1 `i `uc ]
 "130
-[; ;main_ble.c: 130:     INTCONbits.GIE = 0;
-[e = . . _INTCONbits 1 7 -> -> 0 `i `uc ]
-"131
-[; ;main_ble.c: 131:     RCONbits.IPEN = 1;
-[e = . . _RCONbits 5 7 -> -> 1 `i `uc ]
-"132
-[; ;main_ble.c: 132:     PIE1bits.RCIE = 1;
-[e = . . _PIE1bits 0 5 -> -> 1 `i `uc ]
+[; ;main_ble.c: 130:     TRISCbits.RC7 = 1;
+[e = . . _TRISCbits 1 5 -> -> 1 `i `uc ]
 "133
-[; ;main_ble.c: 133:     IPR1bits.RCIP = 1;
-[e = . . _IPR1bits 0 5 -> -> 1 `i `uc ]
+[; ;main_ble.c: 133:     INTCONbits.GIE = 0;
+[e = . . _INTCONbits 1 7 -> -> 0 `i `uc ]
+"134
+[; ;main_ble.c: 134:     RCONbits.IPEN = 1;
+[e = . . _RCONbits 5 7 -> -> 1 `i `uc ]
 "135
-[; ;main_ble.c: 135:     RCSTA1bits.CREN = 1;
-[e = . . _RCSTA1bits 0 4 -> -> 1 `i `uc ]
+[; ;main_ble.c: 135:     PIE1bits.RCIE = 1;
+[e = . . _PIE1bits 0 5 -> -> 1 `i `uc ]
+"136
+[; ;main_ble.c: 136:     IPR1bits.RCIP = 1;
+[e = . . _IPR1bits 0 5 -> -> 1 `i `uc ]
 "138
-[; ;main_ble.c: 138:     PIR1bits.RCIF = 0;
-[e = . . _PIR1bits 0 5 -> -> 0 `i `uc ]
-"139
-[; ;main_ble.c: 139:     PIR1bits.TXIF = 0;
-[e = . . _PIR1bits 0 4 -> -> 0 `i `uc ]
+[; ;main_ble.c: 138:     RCSTA1bits.CREN = 1;
+[e = . . _RCSTA1bits 0 4 -> -> 1 `i `uc ]
 "141
-[; ;main_ble.c: 141:     TXSTA1bits.TXEN = 1;
-[e = . . _TXSTA1bits 0 5 -> -> 1 `i `uc ]
+[; ;main_ble.c: 141:     PIR1bits.RCIF = 0;
+[e = . . _PIR1bits 0 5 -> -> 0 `i `uc ]
 "142
-[; ;main_ble.c: 142:     INTCONbits.GIE = 1;
+[; ;main_ble.c: 142:     PIR1bits.TXIF = 0;
+[e = . . _PIR1bits 0 4 -> -> 0 `i `uc ]
+"144
+[; ;main_ble.c: 144:     TXSTA1bits.TXEN = 1;
+[e = . . _TXSTA1bits 0 5 -> -> 1 `i `uc ]
+"145
+[; ;main_ble.c: 145:     INTCONbits.GIE = 1;
 [e = . . _INTCONbits 1 7 -> -> 1 `i `uc ]
-"143
-[; ;main_ble.c: 143: }
+"146
+[; ;main_ble.c: 146: }
 [e :UE 620 ]
 }
-"145
-[; ;main_ble.c: 145: void UART_Write(char data){
+"148
+[; ;main_ble.c: 148: void UART_Write(char data){
 [v _UART_Write `(v ~T0 @X0 1 ef1`uc ]
 {
 [e :U _UART_Write ]
 [v _data `uc ~T0 @X0 1 r1 ]
 [f ]
-"148
-[; ;main_ble.c: 148:     while(!TXSTA1bits.TRMT);
+"151
+[; ;main_ble.c: 151:     while(!TXSTA1bits.TRMT);
 [e $U 622  ]
 [e :U 623 ]
 [e :U 622 ]
 [e $ ! != -> . . _TXSTA1bits 0 1 `i -> 0 `i 623  ]
 [e :U 624 ]
-"149
-[; ;main_ble.c: 149:     TXREG1 = data;
+"152
+[; ;main_ble.c: 152:     TXREG1 = data;
 [e = _TXREG1 -> _data `uc ]
-"150
-[; ;main_ble.c: 150:     UART_RX = 0;
+"153
+[; ;main_ble.c: 153:     UART_RX = 0;
 [e = _UART_RX -> -> 0 `i `uc ]
-"151
-[; ;main_ble.c: 151: }
+"154
+[; ;main_ble.c: 154: }
 [e :UE 621 ]
 }
-"153
-[; ;main_ble.c: 153: void UART_Write_String(char *buffer){
+"156
+[; ;main_ble.c: 156: void UART_Write_String(char *buffer){
 [v _UART_Write_String `(v ~T0 @X0 1 ef1`*uc ]
 {
 [e :U _UART_Write_String ]
 [v _buffer `*uc ~T0 @X0 1 r1 ]
 [f ]
-"154
-[; ;main_ble.c: 154:     volatile int size = strlen(buffer);
+"157
+[; ;main_ble.c: 157:     volatile int size = strlen(buffer);
 [v _size `Vi ~T0 @X0 1 a ]
 [e = _size -> ( _strlen (1 -> _buffer `*Cuc `i ]
-"155
-[; ;main_ble.c: 155:     for(int i = 0 ; i < size ; i++){
+"158
+[; ;main_ble.c: 158:     for(int i = 0 ; i < size ; i++){
 {
 [v _i `i ~T0 @X0 1 a ]
 [e = _i -> 0 `i ]
 [e $U 629  ]
 [e :U 626 ]
 {
-"156
-[; ;main_ble.c: 156:       UART_Write(buffer[i]);
+"159
+[; ;main_ble.c: 159:       UART_Write(buffer[i]);
 [e ( _UART_Write (1 *U + _buffer * -> _i `x -> -> # *U _buffer `i `x ]
-"157
-[; ;main_ble.c: 157:     }
+"160
+[; ;main_ble.c: 160:     }
 }
 [e ++ _i -> 1 `i ]
 [e :U 629 ]
 [e $ < _i _size 626  ]
 [e :U 627 ]
 }
-"158
-[; ;main_ble.c: 158: }
+"161
+[; ;main_ble.c: 161: }
 [e :UE 625 ]
 }
-"160
-[; ;main_ble.c: 160: char RN4870_changeName(char *name){
+"163
+[; ;main_ble.c: 163: char RN4870_changeName(char *name){
 [v _RN4870_changeName `(uc ~T0 @X0 1 ef1`*uc ]
 {
 [e :U _RN4870_changeName ]
 [v _name `*uc ~T0 @X0 1 r1 ]
 [f ]
-"161
-[; ;main_ble.c: 161:     UART_Write_String("$$$");
+"164
+[; ;main_ble.c: 164:     UART_RN4870_mode = 1;
+[e = _UART_RN4870_mode -> -> 1 `i `uc ]
+"166
+[; ;main_ble.c: 166:     UART_Write_String("$$$");
 [e ( _UART_Write_String (1 :s 2C ]
-"162
-[; ;main_ble.c: 162:     expected = "CMD";
+"167
+[; ;main_ble.c: 167:     expected = "CMD";
 [e = _expected :s 3C ]
-"163
-[; ;main_ble.c: 163:     while(!UART_RX){
+"168
+[; ;main_ble.c: 168:     while(!UART_RX){
 [e $U 631  ]
 [e :U 632 ]
 {
-"164
-[; ;main_ble.c: 164:         if(PORTCbits.RC0 != og && debug){
+"169
+[; ;main_ble.c: 169:         if(PORTCbits.RC0 != og && debug){
 [e $ ! && != -> . . _PORTCbits 0 0 `i -> _og `i != -> _debug `i -> 0 `i 634  ]
 {
-"165
-[; ;main_ble.c: 165:             UART_Write_String(RX_buffer);
-[e ( _UART_Write_String (1 &U _RX_buffer ]
-"166
-[; ;main_ble.c: 166:             UART_Write_String("!=");
-[e ( _UART_Write_String (1 :s 4C ]
-"167
-[; ;main_ble.c: 167:             UART_Write_String(expected);
-[e ( _UART_Write_String (1 _expected ]
-"168
-[; ;main_ble.c: 168:             UART_Write_String("|");
-[e ( _UART_Write_String (1 :s 5C ]
-"169
-[; ;main_ble.c: 169:             _delay(100000);
-[e ( __delay (1 -> -> 100000 `l `ul ]
 "170
-[; ;main_ble.c: 170:         }
+[; ;main_ble.c: 170:             UART_Write_String(RX_buffer);
+[e ( _UART_Write_String (1 &U _RX_buffer ]
+"171
+[; ;main_ble.c: 171:             UART_Write_String("!=");
+[e ( _UART_Write_String (1 :s 4C ]
+"172
+[; ;main_ble.c: 172:             UART_Write_String(expected);
+[e ( _UART_Write_String (1 _expected ]
+"173
+[; ;main_ble.c: 173:             UART_Write_String("|");
+[e ( _UART_Write_String (1 :s 5C ]
+"174
+[; ;main_ble.c: 174:             _delay(100000);
+[e ( __delay (1 -> -> 100000 `l `ul ]
+"175
+[; ;main_ble.c: 175:         }
 }
 [e :U 634 ]
-"171
-[; ;main_ble.c: 171:     }
+"176
+[; ;main_ble.c: 176:     }
 }
 [e :U 631 ]
-"163
-[; ;main_ble.c: 163:     while(!UART_RX){
+"168
+[; ;main_ble.c: 168:     while(!UART_RX){
 [e $ ! != -> _UART_RX `i -> 0 `i 632  ]
 [e :U 633 ]
-"173
-[; ;main_ble.c: 173:     UART_Write_String("SS,C0\r");
+"178
+[; ;main_ble.c: 178:     UART_Write_String("SS,C0\r");
 [e ( _UART_Write_String (1 :s 6C ]
-"174
-[; ;main_ble.c: 174:     expected = "AOK";
+"179
+[; ;main_ble.c: 179:     expected = "AOK";
 [e = _expected :s 7C ]
-"175
-[; ;main_ble.c: 175:     while(!UART_RX);
+"180
+[; ;main_ble.c: 180:     while(!UART_RX);
 [e $U 635  ]
 [e :U 636 ]
 [e :U 635 ]
 [e $ ! != -> _UART_RX `i -> 0 `i 636  ]
 [e :U 637 ]
-"177
-[; ;main_ble.c: 177:     UART_Write_String("S-,");
+"182
+[; ;main_ble.c: 182:     UART_Write_String("S-,");
 [e ( _UART_Write_String (1 :s 8C ]
-"178
-[; ;main_ble.c: 178:     UART_Write_String(name);
+"183
+[; ;main_ble.c: 183:     UART_Write_String(name);
 [e ( _UART_Write_String (1 _name ]
-"179
-[; ;main_ble.c: 179:     UART_Write_String("\r");
+"184
+[; ;main_ble.c: 184:     UART_Write_String("\r");
 [e ( _UART_Write_String (1 :s 9C ]
-"180
-[; ;main_ble.c: 180:     expected = "AOK";
+"185
+[; ;main_ble.c: 185:     expected = "AOK";
 [e = _expected :s 10C ]
-"181
-[; ;main_ble.c: 181:     while(!UART_RX);
+"186
+[; ;main_ble.c: 186:     while(!UART_RX);
 [e $U 638  ]
 [e :U 639 ]
 [e :U 638 ]
 [e $ ! != -> _UART_RX `i -> 0 `i 639  ]
 [e :U 640 ]
-"183
-[; ;main_ble.c: 183:     UART_Write_String("R,1\r");
+"188
+[; ;main_ble.c: 188:     UART_Write_String("R,1\r");
 [e ( _UART_Write_String (1 :s 11C ]
-"184
-[; ;main_ble.c: 184:     expected = "Rebooting";
+"189
+[; ;main_ble.c: 189:     expected = "Rebooting";
 [e = _expected :s 12C ]
-"185
-[; ;main_ble.c: 185:     while(!UART_RX);
+"190
+[; ;main_ble.c: 190:     while(!UART_RX);
 [e $U 641  ]
 [e :U 642 ]
 [e :U 641 ]
 [e $ ! != -> _UART_RX `i -> 0 `i 642  ]
 [e :U 643 ]
-"187
-[; ;main_ble.c: 187:     return 1;
+"192
+[; ;main_ble.c: 192:     UART_RN4870_mode = 0;
+[e = _UART_RN4870_mode -> -> 0 `i `uc ]
+"194
+[; ;main_ble.c: 194:     return 1;
 [e ) -> -> 1 `i `uc ]
 [e $UE 630  ]
-"188
-[; ;main_ble.c: 188: }
+"195
+[; ;main_ble.c: 195: }
 [e :UE 630 ]
 }
-"190
-[; ;main_ble.c: 190: int packetHandler(){
+"197
+[; ;main_ble.c: 197: int packetHandler(){
 [v _packetHandler `(i ~T0 @X0 1 ef ]
 {
 [e :U _packetHandler ]
 [f ]
-"191
-[; ;main_ble.c: 191:     if(strstr(RX_buffer,"hey")!=((void*)0)){
+"198
+[; ;main_ble.c: 198:     if(strstr(RX_buffer,"hey")!=((void*)0)){
 [e $ ! != ( _strstr (2 , -> &U _RX_buffer `*Cuc :s 13C -> -> -> 0 `i `*v `*uc 645  ]
 {
-"192
-[; ;main_ble.c: 192:         UART_Write_String("hallo\n");
+"199
+[; ;main_ble.c: 199:         UART_Write_String("hallo\n");
 [e ( _UART_Write_String (1 :s 14C ]
-"193
-[; ;main_ble.c: 193:         memset(RX_buffer,0,strlen(RX_buffer));
+"202
+[; ;main_ble.c: 202:         memset(RX_buffer,0,strlen(RX_buffer));
 [e ( _memset (3 , , -> &U _RX_buffer `*v -> 0 `i ( _strlen (1 -> &U _RX_buffer `*Cuc ]
-"194
-[; ;main_ble.c: 194:         ix = 0;
+"203
+[; ;main_ble.c: 203:         ix = 0;
 [e = _ix -> 0 `i ]
-"195
-[; ;main_ble.c: 195:         return 1;
+"204
+[; ;main_ble.c: 204:         return 1;
 [e ) -> 1 `i ]
 [e $UE 644  ]
-"196
-[; ;main_ble.c: 196:     }
+"205
+[; ;main_ble.c: 205:     }
 }
 [e $U 646  ]
-"197
-[; ;main_ble.c: 197:     else if(strstr(RX_buffer,"hello there")!=((void*)0)){
+"206
+[; ;main_ble.c: 206:     else if(strstr(RX_buffer,"hello there")!=((void*)0)){
 [e :U 645 ]
 [e $ ! != ( _strstr (2 , -> &U _RX_buffer `*Cuc :s 15C -> -> -> 0 `i `*v `*uc 647  ]
 {
-"198
-[; ;main_ble.c: 198:         UART_Write_String("General Kenobi\n");
+"207
+[; ;main_ble.c: 207:         UART_Write_String("General Kenobi\n");
 [e ( _UART_Write_String (1 :s 16C ]
-"199
-[; ;main_ble.c: 199:         memset(RX_buffer,0,strlen(RX_buffer));
+"210
+[; ;main_ble.c: 210:         memset(RX_buffer,0,strlen(RX_buffer));
 [e ( _memset (3 , , -> &U _RX_buffer `*v -> 0 `i ( _strlen (1 -> &U _RX_buffer `*Cuc ]
-"200
-[; ;main_ble.c: 200:         ix = 0;
+"211
+[; ;main_ble.c: 211:         ix = 0;
 [e = _ix -> 0 `i ]
-"201
-[; ;main_ble.c: 201:         return 1;
+"212
+[; ;main_ble.c: 212:         return 1;
 [e ) -> 1 `i ]
 [e $UE 644  ]
-"202
-[; ;main_ble.c: 202:     }
+"213
+[; ;main_ble.c: 213:     }
 }
 [e $U 648  ]
-"203
-[; ;main_ble.c: 203:     else if(strstr(RX_buffer,"temp")!=((void*)0)){
+"214
+[; ;main_ble.c: 214:     else if(strstr(RX_buffer,"temp")!=((void*)0)){
 [e :U 647 ]
 [e $ ! != ( _strstr (2 , -> &U _RX_buffer `*Cuc :s 17C -> -> -> 0 `i `*v `*uc 649  ]
 {
-"204
-[; ;main_ble.c: 204:         UART_Write_String("veel te werm\n");
-[e ( _UART_Write_String (1 :s 18C ]
-"205
-[; ;main_ble.c: 205:         memset(RX_buffer,0,strlen(RX_buffer));
+"215
+[; ;main_ble.c: 215:         short int temp = 25;
+[v _temp `s ~T0 @X0 1 a ]
+[e = _temp -> -> 25 `i `s ]
+"216
+[; ;main_ble.c: 216:         char answer[20];
+[v _answer `uc ~T0 @X0 -> 20 `i a ]
+"217
+[; ;main_ble.c: 217:         sprintf(answer,"The temperature is %i\r",temp);
+[e ( _sprintf (1 , (. , &U _answer :s 18C -> _temp `i ]
+"218
+[; ;main_ble.c: 218:         UART_Write_String(answer);
+[e ( _UART_Write_String (1 &U _answer ]
+"221
+[; ;main_ble.c: 221:         memset(RX_buffer,0,strlen(RX_buffer));
 [e ( _memset (3 , , -> &U _RX_buffer `*v -> 0 `i ( _strlen (1 -> &U _RX_buffer `*Cuc ]
-"206
-[; ;main_ble.c: 206:         ix = 0;
+"222
+[; ;main_ble.c: 222:         ix = 0;
 [e = _ix -> 0 `i ]
-"207
-[; ;main_ble.c: 207:         return 1;
+"223
+[; ;main_ble.c: 223:         return 1;
 [e ) -> 1 `i ]
 [e $UE 644  ]
-"208
-[; ;main_ble.c: 208:     }
+"224
+[; ;main_ble.c: 224:     }
 }
+[e $U 650  ]
+"225
+[; ;main_ble.c: 225:     else if(strstr(RX_buffer,"changeID:")!=((void*)0)){
 [e :U 649 ]
+[e $ ! != ( _strstr (2 , -> &U _RX_buffer `*Cuc :s 19C -> -> -> 0 `i `*v `*uc 651  ]
+{
+"226
+[; ;main_ble.c: 226:         char *pos = strstr(RX_buffer,"changeID:") + strlen("changeID:");
+[v _pos `*uc ~T0 @X0 1 a ]
+[e = _pos + ( _strstr (2 , -> &U _RX_buffer `*Cuc :s 20C * -> ( _strlen (1 :s 21C `ux -> -> # *U ( _strstr (2 , -> &U _RX_buffer `*Cuc :s 20C `ui `ux ]
+"227
+[; ;main_ble.c: 227:         char *end;
+[v _end `*uc ~T0 @X0 1 a ]
+"228
+[; ;main_ble.c: 228:         ID = strtol(pos,&end,10);
+[e = _ID -> ( _strtol (3 , , -> _pos `*Cuc &U _end -> 10 `i `i ]
+"230
+[; ;main_ble.c: 230:         char answer[50];
+[v _answer `uc ~T0 @X0 -> 50 `i a ]
+"232
+[; ;main_ble.c: 232:         sprintf(answer,"changeID:IDACK\r");
+[e ( _sprintf (1 , &U _answer :s 22C ]
+"233
+[; ;main_ble.c: 233:         UART_Write_String(answer);
+[e ( _UART_Write_String (1 &U _answer ]
+"236
+[; ;main_ble.c: 236:         memset(RX_buffer,0,strlen(RX_buffer));
+[e ( _memset (3 , , -> &U _RX_buffer `*v -> 0 `i ( _strlen (1 -> &U _RX_buffer `*Cuc ]
+"237
+[; ;main_ble.c: 237:         ix = 0;
+[e = _ix -> 0 `i ]
+"238
+[; ;main_ble.c: 238:         return 1;
+[e ) -> 1 `i ]
+[e $UE 644  ]
+"239
+[; ;main_ble.c: 239:     }
+}
+[e $U 652  ]
+"240
+[; ;main_ble.c: 240:     else if(strstr(RX_buffer,"changeName:")!=((void*)0)){
+[e :U 651 ]
+[e $ ! != ( _strstr (2 , -> &U _RX_buffer `*Cuc :s 23C -> -> -> 0 `i `*v `*uc 653  ]
+{
+"241
+[; ;main_ble.c: 241:         char *txt = strstr(RX_buffer,"changeName:") + strlen("changeName:");
+[v _txt `*uc ~T0 @X0 1 a ]
+[e = _txt + ( _strstr (2 , -> &U _RX_buffer `*Cuc :s 24C * -> ( _strlen (1 :s 25C `ux -> -> # *U ( _strstr (2 , -> &U _RX_buffer `*Cuc :s 24C `ui `ux ]
+"242
+[; ;main_ble.c: 242:         sprintf(name,"%s%d",txt,ID);
+[e ( _sprintf (1 , , (. , &U _name :s 26C _txt _ID ]
+"245
+[; ;main_ble.c: 245:         char answer[50];
+[v _answer `uc ~T0 @X0 -> 50 `i a ]
+"246
+[; ;main_ble.c: 246:         sprintf(answer,"changeName:nameACK\r");
+[e ( _sprintf (1 , &U _answer :s 27C ]
+"247
+[; ;main_ble.c: 247:         UART_Write_String(answer);
+[e ( _UART_Write_String (1 &U _answer ]
+"249
+[; ;main_ble.c: 249:         _delay((unsigned long)((100)*(16000000/4000.0)));
+[e ( __delay (1 -> * -> -> 100 `i `d / -> -> 16000000 `l `d .4000.0 `ul ]
+"252
+[; ;main_ble.c: 252:         RN4870_changeName(name);
+[e ( _RN4870_changeName (1 &U _name ]
+"262
+[; ;main_ble.c: 262:         return 1;
+[e ) -> 1 `i ]
+[e $UE 644  ]
+"263
+[; ;main_ble.c: 263:     }
+}
+[e :U 653 ]
+[e :U 652 ]
+[e :U 650 ]
 [e :U 648 ]
 [e :U 646 ]
-"209
-[; ;main_ble.c: 209:     return 0;
+"264
+[; ;main_ble.c: 264:     return 0;
 [e ) -> 0 `i ]
 [e $UE 644  ]
-"210
-[; ;main_ble.c: 210: }
+"265
+[; ;main_ble.c: 265: }
 [e :UE 644 ]
 }
+[p f _sprintf 8650880 ]
 [a 5C 124 0 ]
 [a 13C 104 101 121 0 ]
 [a 17C 116 101 109 112 0 ]
-[a 1C 66 76 69 101 112 0 ]
 [a 12C 82 101 98 111 111 116 105 110 103 0 ]
 [a 15C 104 101 108 108 111 32 116 104 101 114 101 0 ]
+[a 26C 37 115 37 100 0 ]
 [a 7C 65 79 75 0 ]
 [a 10C 65 79 75 0 ]
 [a 3C 67 77 68 0 ]
 [a 4C 33 61 0 ]
+[a 23C 99 104 97 110 103 101 78 97 109 101 58 0 ]
+[a 24C 99 104 97 110 103 101 78 97 109 101 58 0 ]
+[a 25C 99 104 97 110 103 101 78 97 109 101 58 0 ]
+[a 19C 99 104 97 110 103 101 73 68 58 0 ]
+[a 20C 99 104 97 110 103 101 73 68 58 0 ]
+[a 21C 99 104 97 110 103 101 73 68 58 0 ]
 [a 8C 83 45 44 0 ]
 [a 2C 36 36 36 0 ]
+[a 18C 84 104 101 32 116 101 109 112 101 114 97 116 117 114 101 32 105 115 32 37 105 13 0 ]
+[a 27C 99 104 97 110 103 101 78 97 109 101 58 110 97 109 101 65 67 75 13 0 ]
+[a 22C 99 104 97 110 103 101 73 68 58 73 68 65 67 75 13 0 ]
 [a 11C 82 44 49 13 0 ]
 [a 6C 83 83 44 67 48 13 0 ]
 [a 9C 13 0 ]
+[a 1C 83 116 97 114 116 10 0 ]
 [a 14C 104 97 108 108 111 10 0 ]
-[a 18C 118 101 101 108 32 116 101 32 119 101 114 109 10 0 ]
 [a 16C 71 101 110 101 114 97 108 32 75 101 110 111 98 105 10 0 ]

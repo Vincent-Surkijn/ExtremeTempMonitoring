@@ -3,6 +3,24 @@
 [d edition pro ]
 [d chip 18F25K50 ]
 [d frameptr 4065 ]
+"7 C:\Program Files (x86)\Microchip\xc8\v2.05\pic\sources\c99\common\__strtoxl.c
+[v ___strtoxl __strtoxl `(ul  1 e 4 0 ]
+"1 C:\Program Files (x86)\Microchip\xc8\v2.05\pic\sources\c99\common\abs.c
+[v _abs abs `(i  1 e 2 0 ]
+"9 C:\Program Files (x86)\Microchip\xc8\v2.05\pic\sources\c99\common\aodiv.c
+[v ___aodiv __aodiv `(o  1 e 8 0 ]
+"9 C:\Program Files (x86)\Microchip\xc8\v2.05\pic\sources\c99\common\aomod.c
+[v ___aomod __aomod `(o  1 e 8 0 ]
+"72 C:\Program Files (x86)\Microchip\xc8\v2.05\pic\sources\c99\common\doprnt.c
+[v _pad pad `(i  1 s 2 pad ]
+"274
+[v _dtoa dtoa `(i  1 s 2 dtoa ]
+"546
+[v _stoa stoa `(i  1 s 2 stoa ]
+"670
+[v _vfpfcnvrt vfpfcnvrt `(i  1 s 2 vfpfcnvrt ]
+"1368
+[v _vfprintf vfprintf `(i  1 e 2 0 ]
 "4 C:\Program Files (x86)\Microchip\xc8\v2.05\pic\sources\c99\common\fleq.c
 [v ___fleq __fleq `(b  1 e 0 0 ]
 "62 C:\Program Files (x86)\Microchip\xc8\v2.05\pic\sources\c99\common\float.c
@@ -15,8 +33,24 @@
 [v ___ftmul __ftmul `(f  1 e 4 0 ]
 "19 C:\Program Files (x86)\Microchip\xc8\v2.05\pic\sources\c99\common\ftsub.c
 [v ___ftsub __ftsub `(f  1 e 4 0 ]
+"5 C:\Program Files (x86)\Microchip\xc8\v2.05\pic\sources\c99\common\isalpha.c
+[v _isalpha isalpha `(i  1 e 2 0 ]
+"5 C:\Program Files (x86)\Microchip\xc8\v2.05\pic\sources\c99\common\isdigit.c
+[v _isdigit isdigit `(i  1 e 2 0 ]
+"5 C:\Program Files (x86)\Microchip\xc8\v2.05\pic\sources\c99\common\islower.c
+[v _islower islower `(i  1 e 2 0 ]
+"5 C:\Program Files (x86)\Microchip\xc8\v2.05\pic\sources\c99\common\isspace.c
+[v _isspace isspace `(i  1 e 2 0 ]
 "4 C:\Program Files (x86)\Microchip\xc8\v2.05\pic\sources\c99\common\memset.c
 [v _memset memset `(*.39v  1 e 2 0 ]
+"8 C:\Program Files (x86)\Microchip\xc8\v2.05\pic\sources\c99\common\nf_fputc.c
+[v _fputc fputc `(i  1 e 2 0 ]
+"8 C:\Program Files (x86)\Microchip\xc8\v2.05\pic\sources\c99\common\nf_fputs.c
+[v _fputs fputs `(i  1 e 2 0 ]
+"9 C:\Program Files (x86)\Microchip\xc8\v2.05\pic\sources\c99\common\nf_sprintf.c
+[v _sprintf sprintf `(i  1 e 2 0 ]
+"7 C:\Program Files (x86)\Microchip\xc8\v2.05\pic\sources\c99\common\putch.c
+[v _putch putch `(v  1 e 1 0 ]
 "10 C:\Program Files (x86)\Microchip\xc8\v2.05\pic\sources\c99\common\sprcadd.c
 [v ___fladd __fladd `(d  1 e 4 0 ]
 "245
@@ -37,23 +71,27 @@
 "143 C:\Program Files (x86)\Microchip\xc8\v2.05\pic\sources\c99\common\strstr.c
 [v _strstr strstr `(*.39uc  1 e 2 0 ]
 [v i2_strstr strstr `(*.39uc  1 e 2 0 ]
+"4 C:\Program Files (x86)\Microchip\xc8\v2.05\pic\sources\c99\common\strtol.c
+[v _strtol strtol `(l  1 e 4 0 ]
+"4 C:\Program Files (x86)\Microchip\xc8\v2.05\pic\sources\c99\common\toupper.c
+[v _toupper toupper `(i  1 e 2 0 ]
 "15 C:\Program Files (x86)\Microchip\xc8\v2.05\pic\sources\c99\common\Umul32.c
 [v ___lmul __lmul `(ul  1 e 4 0 ]
 "91 C:\Program Files (x86)\Microchip\xc8\v2.05\pic\sources\c99\common\Umul64.c
 [v ___omul __omul `(uo  1 e 8 0 ]
-"47 D:\School\Unief\Jaar_3\Tweede_semester\EE5\BLE_test.X\main_ble.c
+"50 D:\School\Unief\Jaar_3\Tweede_semester\EE5\BLE_test.X\main_ble.c
 [v _high_ISR high_ISR `IIH(v  1 e 1 0 ]
-"74
+"77
 [v _main main `(v  1 e 1 0 ]
-"109
+"112
 [v _UART_Init UART_Init `(v  1 e 1 0 ]
-"145
+"148
 [v _UART_Write UART_Write `(v  1 e 1 0 ]
-"153
+"156
 [v _UART_Write_String UART_Write_String `(v  1 e 1 0 ]
-"160
+"163
 [v _RN4870_changeName RN4870_changeName `(uc  1 e 1 0 ]
-"190
+"197
 [v _packetHandler packetHandler `(i  1 e 2 0 ]
 "50 D:\School\Unief\Jaar_3\Tweede_semester\EE5\BLE_test.X\mcc_generated_files/mcc.c
 [v _SYSTEM_Initialize SYSTEM_Initialize `(v  1 e 1 0 ]
@@ -479,31 +517,126 @@
 ]
 [u S95 . 1 `S73 1 . 1 0 `S82 1 . 1 0 `S91 1 . 1 0 ]
 [v _INTCONbits INTCONbits `VES95  1 e 1 @4082 ]
+"55 C:\Program Files (x86)\Microchip\xc8\v2.05\pic\sources\c99\common\doprnt.c
+[v _flags flags `i  1 s 2 flags ]
+[v _prec prec `i  1 s 2 prec ]
+[v _width width `i  1 s 2 width ]
+"66
+[v _dbuf dbuf `[32]uc  1 s 32 dbuf ]
+"69
+[v _nout nout `i  1 s 2 nout ]
+"3 C:\Program Files (x86)\Microchip\xc8\v2.05\pic\sources\c99\common\errno.c
+[v _errno errno `i  1 e 2 0 ]
 "30 D:\School\Unief\Jaar_3\Tweede_semester\EE5\BLE_test.X\main_ble.c
-[v _UART_RX UART_RX `uc  1 e 1 0 ]
+[v _ID ID `i  1 e 2 0 ]
 "31
-[v _RX_buffer RX_buffer `[500]uc  1 e 500 0 ]
-"32
-[v _expected expected `*.25uc  1 e 2 0 ]
+[v _name name `[50]uc  1 e 50 0 ]
 "33
-[v _ix ix `i  1 e 2 0 ]
+[v _UART_RX UART_RX `uc  1 e 1 0 ]
 "34
-[v _UART_RN4870_mode UART_RN4870_mode `uc  1 e 1 0 ]
+[v _RX_buffer RX_buffer `[500]uc  1 e 500 0 ]
+"35
+[v _expected expected `*.25uc  1 e 2 0 ]
 "36
+[v _ix ix `i  1 e 2 0 ]
+"37
+[v _UART_RN4870_mode UART_RN4870_mode `uc  1 e 1 0 ]
+"39
 [v _debug debug `uc  1 e 1 0 ]
-"38
+"41
 [v _og og `uc  1 e 1 0 ]
-"74
+"77
 [v _main main `(v  1 e 1 0 ]
 {
-"76
-[v main@status status `VEuc  1 a 1 46 ]
-"107
+"79
+[v main@status status `VEuc  1 a 1 150 ]
+"110
 } 0
-"190
+"197
 [v _packetHandler packetHandler `(i  1 e 2 0 ]
 {
-"210
+"245
+[v packetHandler@answer_1087 answer `[50]uc  1 a 50 70 ]
+"241
+[v packetHandler@txt txt `*.39uc  1 a 2 144 ]
+"230
+[v packetHandler@answer_1080 answer `[50]uc  1 a 50 20 ]
+"227
+[v packetHandler@end end `*.39uc  1 a 2 146 ]
+"226
+[v packetHandler@pos pos `*.39uc  1 a 2 142 ]
+"216
+[v packetHandler@answer answer `[20]uc  1 a 20 120 ]
+"265
+} 0
+"4 C:\Program Files (x86)\Microchip\xc8\v2.05\pic\sources\c99\common\strtol.c
+[v _strtol strtol `(l  1 e 4 0 ]
+{
+[v strtol@s s `*.39Cuc  1 p 2 29 ]
+[v strtol@endptr endptr `*.39*.39uc  1 p 2 31 ]
+[v strtol@base base `i  1 p 2 33 ]
+"7
+} 0
+"7 C:\Program Files (x86)\Microchip\xc8\v2.05\pic\sources\c99\common\__strtoxl.c
+[v ___strtoxl __strtoxl `(ul  1 e 4 0 ]
+{
+"9
+[v ___strtoxl@a a `ul  1 a 4 22 ]
+[v ___strtoxl@limit limit `ul  1 a 4 16 ]
+[v ___strtoxl@prev_a prev_a `ul  1 a 4 4 ]
+"11
+[v ___strtoxl@cp cp `*.39Cuc  1 a 2 26 ]
+"10
+[v ___strtoxl@c c `uc  1 a 1 28 ]
+[v ___strtoxl@skip skip `uc  1 a 1 21 ]
+[v ___strtoxl@sign sign `uc  1 a 1 20 ]
+[v ___strtoxl@conv_done conv_done `uc  1 a 1 15 ]
+"7
+[v ___strtoxl@s s `*.39Cuc  1 p 2 39 ]
+[v ___strtoxl@endptr endptr `*.39*.39uc  1 p 2 41 ]
+[v ___strtoxl@base base `i  1 p 2 43 ]
+[v ___strtoxl@is_signed is_signed `uc  1 p 1 45 ]
+"84
+} 0
+"4 C:\Program Files (x86)\Microchip\xc8\v2.05\pic\sources\c99\common\toupper.c
+[v _toupper toupper `(i  1 e 2 0 ]
+{
+[v toupper@c c `i  1 p 2 31 ]
+"8
+} 0
+"5 C:\Program Files (x86)\Microchip\xc8\v2.05\pic\sources\c99\common\islower.c
+[v _islower islower `(i  1 e 2 0 ]
+{
+[v islower@c c `i  1 p 2 25 ]
+"8
+} 0
+"5 C:\Program Files (x86)\Microchip\xc8\v2.05\pic\sources\c99\common\isspace.c
+[v _isspace isspace `(i  1 e 2 0 ]
+{
+[v isspace@c c `i  1 p 2 25 ]
+"8
+} 0
+"5 C:\Program Files (x86)\Microchip\xc8\v2.05\pic\sources\c99\common\isdigit.c
+[v _isdigit isdigit `(i  1 e 2 0 ]
+{
+[v isdigit@c c `i  1 p 2 25 ]
+"8
+} 0
+"5 C:\Program Files (x86)\Microchip\xc8\v2.05\pic\sources\c99\common\isalpha.c
+[v _isalpha isalpha `(i  1 e 2 0 ]
+{
+[v isalpha@c c `i  1 p 2 25 ]
+"8
+} 0
+"15 C:\Program Files (x86)\Microchip\xc8\v2.05\pic\sources\c99\common\Umul32.c
+[v ___lmul __lmul `(ul  1 e 4 0 ]
+{
+"17
+[v ___lmul@product product `ul  1 a 4 33 ]
+"15
+[v ___lmul@multiplier multiplier `ul  1 p 4 25 ]
+[v ___lmul@multiplicand multiplicand `ul  1 p 4 29 ]
+"129
 } 0
 "143 C:\Program Files (x86)\Microchip\xc8\v2.05\pic\sources\c99\common\strstr.c
 [v _strstr strstr `(*.39uc  1 e 2 0 ]
@@ -534,6 +667,151 @@
 [v strchr@c c `i  1 p 2 27 ]
 "20
 } 0
+"9 C:\Program Files (x86)\Microchip\xc8\v2.05\pic\sources\c99\common\nf_sprintf.c
+[v _sprintf sprintf `(i  1 e 2 0 ]
+{
+[s S1612 _IO_FILE 6 `*.39uc 1 buffer 2 0 `i 1 count 2 2 `i 1 limit 2 4 ]
+"13
+[v sprintf@f f `S1612  1 a 6 12 ]
+"12
+[v sprintf@ap ap `[1]*.39v  1 a 2 10 ]
+"9
+[v sprintf@s s `*.39uc  1 p 2 0 ]
+[v sprintf@fmt fmt `*.25Cuc  1 p 2 2 ]
+"23
+} 0
+"1368 C:\Program Files (x86)\Microchip\xc8\v2.05\pic\sources\c99\common\doprnt.c
+[v _vfprintf vfprintf `(i  1 e 2 0 ]
+{
+"1371
+[v vfprintf@cfmt cfmt `*.25uc  1 a 2 70 ]
+[s S1090 _IO_FILE 0 ]
+"1368
+[v vfprintf@fp fp `*.39S1090  1 p 2 64 ]
+[v vfprintf@fmt fmt `*.25Cuc  1 p 2 66 ]
+[v vfprintf@ap ap `*.39*.39v  1 p 2 68 ]
+"1382
+} 0
+"670
+[v _vfpfcnvrt vfpfcnvrt `(i  1 s 2 vfpfcnvrt ]
+{
+"674
+[v vfpfcnvrt@ll ll `o  1 a 8 54 ]
+"672
+[v vfpfcnvrt@cp cp `*.39uc  1 a 2 62 ]
+[s S1090 _IO_FILE 0 ]
+"670
+[v vfpfcnvrt@fp fp `*.39S1090  1 p 2 46 ]
+[v vfpfcnvrt@fmt fmt `*.39*.25uc  1 p 2 48 ]
+[v vfpfcnvrt@ap ap `*.39*.39v  1 p 2 50 ]
+"1365
+} 0
+"546
+[v _stoa stoa `(i  1 s 2 stoa ]
+{
+"548
+[v stoa@nuls nuls `[7]uc  1 a 7 0 ]
+"549
+[v stoa@l l `i  1 a 2 15 ]
+[v stoa@p p `i  1 a 2 13 ]
+"548
+[v stoa@cp cp `*.39uc  1 a 2 11 ]
+"549
+[v stoa@w w `i  1 a 2 9 ]
+[v stoa@i i `i  1 a 2 7 ]
+[s S1090 _IO_FILE 0 ]
+"546
+[v stoa@fp fp `*.39S1090  1 p 2 34 ]
+[v stoa@s s `*.39uc  1 p 2 36 ]
+"548
+[v stoa@F1139 F1139 `[7]uc  1 s 7 F1139 ]
+"589
+} 0
+"274
+[v _dtoa dtoa `(i  1 s 2 dtoa ]
+{
+"277
+[v dtoa@n n `o  1 a 8 36 ]
+"276
+[v dtoa@i i `i  1 a 2 44 ]
+[v dtoa@s s `i  1 a 2 34 ]
+[v dtoa@w w `i  1 a 2 32 ]
+[v dtoa@p p `i  1 a 2 30 ]
+[s S1090 _IO_FILE 0 ]
+"274
+[v dtoa@fp fp `*.39S1090  1 p 2 10 ]
+[v dtoa@d d `o  1 p 8 12 ]
+"315
+} 0
+"72
+[v _pad pad `(i  1 s 2 pad ]
+{
+"74
+[v pad@w w `i  1 a 2 44 ]
+[v pad@i i `i  1 a 2 42 ]
+[s S1090 _IO_FILE 0 ]
+"72
+[v pad@fp fp `*.39S1090  1 p 2 0 ]
+[v pad@buf buf `*.39uc  1 p 2 2 ]
+[v pad@p p `i  1 p 2 4 ]
+"95
+} 0
+"8 C:\Program Files (x86)\Microchip\xc8\v2.05\pic\sources\c99\common\nf_fputs.c
+[v _fputs fputs `(i  1 e 2 0 ]
+{
+"11
+[v fputs@i i `i  1 a 2 39 ]
+"10
+[v fputs@c c `uc  1 a 1 38 ]
+"8
+[v fputs@s s `*.39Cuc  1 p 2 34 ]
+[s S1612 _IO_FILE 6 `*.39uc 1 buffer 2 0 `i 1 count 2 2 `i 1 limit 2 4 ]
+[v fputs@fp fp `*.39S1612  1 p 2 36 ]
+"19
+} 0
+"8 C:\Program Files (x86)\Microchip\xc8\v2.05\pic\sources\c99\common\nf_fputc.c
+[v _fputc fputc `(i  1 e 2 0 ]
+{
+[v fputc@c c `i  1 p 2 25 ]
+[s S1612 _IO_FILE 6 `*.39uc 1 buffer 2 0 `i 1 count 2 2 `i 1 limit 2 4 ]
+[v fputc@fp fp `*.39S1612  1 p 2 27 ]
+"21
+} 0
+"7 C:\Program Files (x86)\Microchip\xc8\v2.05\pic\sources\c99\common\putch.c
+[v _putch putch `(v  1 e 1 0 ]
+{
+"9
+} 0
+"1 C:\Program Files (x86)\Microchip\xc8\v2.05\pic\sources\c99\common\abs.c
+[v _abs abs `(i  1 e 2 0 ]
+{
+[v abs@a a `i  1 p 2 43 ]
+"4
+} 0
+"9 C:\Program Files (x86)\Microchip\xc8\v2.05\pic\sources\c99\common\aomod.c
+[v ___aomod __aomod `(o  1 e 8 0 ]
+{
+"12
+[v ___aomod@sign sign `uc  1 a 1 42 ]
+[v ___aomod@counter counter `uc  1 a 1 41 ]
+"9
+[v ___aomod@dividend dividend `o  1 p 8 25 ]
+[v ___aomod@divisor divisor `o  1 p 8 33 ]
+"36
+} 0
+"9 C:\Program Files (x86)\Microchip\xc8\v2.05\pic\sources\c99\common\aodiv.c
+[v ___aodiv __aodiv `(o  1 e 8 0 ]
+{
+"12
+[v ___aodiv@quotient quotient `o  1 a 8 2 ]
+"13
+[v ___aodiv@sign sign `uc  1 a 1 1 ]
+[v ___aodiv@counter counter `uc  1 a 1 0 ]
+"9
+[v ___aodiv@dividend dividend `o  1 p 8 25 ]
+[v ___aodiv@divisor divisor `o  1 p 8 33 ]
+"43
+} 0
 "4 C:\Program Files (x86)\Microchip\xc8\v2.05\pic\sources\c99\common\memset.c
 [v _memset memset `(*.39v  1 e 2 0 ]
 {
@@ -547,10 +825,44 @@
 [v memset@n n `ui  1 p 2 33 ]
 "90
 } 0
-"109 D:\School\Unief\Jaar_3\Tweede_semester\EE5\BLE_test.X\main_ble.c
+"163 D:\School\Unief\Jaar_3\Tweede_semester\EE5\BLE_test.X\main_ble.c
+[v _RN4870_changeName RN4870_changeName `(uc  1 e 1 0 ]
+{
+[v RN4870_changeName@name name `*.39uc  1 p 2 37 ]
+"195
+} 0
+"156
+[v _UART_Write_String UART_Write_String `(v  1 e 1 0 ]
+{
+"158
+[v UART_Write_String@i i `i  1 a 2 33 ]
+"157
+[v UART_Write_String@size size `VEi  1 a 2 35 ]
+"156
+[v UART_Write_String@buffer buffer `*.35uc  1 p 2 29 ]
+"161
+} 0
+"12 C:\Program Files (x86)\Microchip\xc8\v2.05\pic\sources\c99\common\strlen.c
+[v _strlen strlen `(ui  1 e 2 0 ]
+{
+"14
+[v strlen@a a `*.35Cuc  1 a 2 27 ]
+"12
+[v strlen@s s `*.35Cuc  1 p 2 25 ]
+"26
+} 0
+"148 D:\School\Unief\Jaar_3\Tweede_semester\EE5\BLE_test.X\main_ble.c
+[v _UART_Write UART_Write `(v  1 e 1 0 ]
+{
+[v UART_Write@data data `uc  1 a 1 wreg ]
+[v UART_Write@data data `uc  1 a 1 wreg ]
+[v UART_Write@data data `uc  1 a 1 25 ]
+"154
+} 0
+"112
 [v _UART_Init UART_Init `(v  1 e 1 0 ]
 {
-"143
+"146
 } 0
 "50 D:\School\Unief\Jaar_3\Tweede_semester\EE5\BLE_test.X\mcc_generated_files/mcc.c
 [v _SYSTEM_Initialize SYSTEM_Initialize `(v  1 e 1 0 ]
@@ -567,44 +879,10 @@
 {
 "67
 } 0
-"160 D:\School\Unief\Jaar_3\Tweede_semester\EE5\BLE_test.X\main_ble.c
-[v _RN4870_changeName RN4870_changeName `(uc  1 e 1 0 ]
-{
-[v RN4870_changeName@name name `*.25uc  1 p 2 37 ]
-"188
-} 0
-"153
-[v _UART_Write_String UART_Write_String `(v  1 e 1 0 ]
-{
-"155
-[v UART_Write_String@i i `i  1 a 2 33 ]
-"154
-[v UART_Write_String@size size `VEi  1 a 2 35 ]
-"153
-[v UART_Write_String@buffer buffer `*.35uc  1 p 2 29 ]
-"158
-} 0
-"12 C:\Program Files (x86)\Microchip\xc8\v2.05\pic\sources\c99\common\strlen.c
-[v _strlen strlen `(ui  1 e 2 0 ]
-{
-"14
-[v strlen@a a `*.35Cuc  1 a 2 27 ]
-"12
-[v strlen@s s `*.35Cuc  1 p 2 25 ]
-"26
-} 0
-"145 D:\School\Unief\Jaar_3\Tweede_semester\EE5\BLE_test.X\main_ble.c
-[v _UART_Write UART_Write `(v  1 e 1 0 ]
-{
-[v UART_Write@data data `uc  1 a 1 wreg ]
-[v UART_Write@data data `uc  1 a 1 wreg ]
-[v UART_Write@data data `uc  1 a 1 25 ]
-"151
-} 0
-"47
+"50 D:\School\Unief\Jaar_3\Tweede_semester\EE5\BLE_test.X\main_ble.c
 [v _high_ISR high_ISR `IIH(v  1 e 1 0 ]
 {
-"69
+"72
 } 0
 "143 C:\Program Files (x86)\Microchip\xc8\v2.05\pic\sources\c99\common\strstr.c
 [v i2_strstr strstr `(*.39uc  1 e 2 0 ]

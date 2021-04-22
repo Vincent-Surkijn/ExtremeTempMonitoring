@@ -7910,6 +7910,9 @@ void *memccpy (void *restrict, const void *restrict, int, size_t);
 
 
 
+int ID = 0;
+char name[50] = "SENSOR";
+
 char UART_RX;
 char RX_buffer[500];
 char *expected;
@@ -7973,8 +7976,8 @@ void main(void)
     TRISBbits.RB5 = 0;
     TRISCbits.RC0 = 1;
 
-    status = RN4870_changeName("BLEep");
-    UART_RN4870_mode = 0;
+
+    UART_Write_String("Start\n");
 
     while (1)
     {
@@ -8041,6 +8044,8 @@ void UART_Write_String(char *buffer){
 }
 
 char RN4870_changeName(char *name){
+    UART_RN4870_mode = 1;
+
     UART_Write_String("$$$");
     expected = "CMD";
     while(!UART_RX){
@@ -8067,26 +8072,68 @@ char RN4870_changeName(char *name){
     expected = "Rebooting";
     while(!UART_RX);
 
+    UART_RN4870_mode = 0;
+
     return 1;
 }
 
 int packetHandler(){
     if(strstr(RX_buffer,"hey")!=((void*)0)){
         UART_Write_String("hallo\n");
+
+
         memset(RX_buffer,0,strlen(RX_buffer));
         ix = 0;
         return 1;
     }
     else if(strstr(RX_buffer,"hello there")!=((void*)0)){
         UART_Write_String("General Kenobi\n");
+
+
         memset(RX_buffer,0,strlen(RX_buffer));
         ix = 0;
         return 1;
     }
     else if(strstr(RX_buffer,"temp")!=((void*)0)){
-        UART_Write_String("veel te werm\n");
+        short int temp = 25;
+        char answer[20];
+        sprintf(answer,"The temperature is %i\r",temp);
+        UART_Write_String(answer);
+
+
         memset(RX_buffer,0,strlen(RX_buffer));
         ix = 0;
+        return 1;
+    }
+    else if(strstr(RX_buffer,"changeID:")!=((void*)0)){
+        char *pos = strstr(RX_buffer,"changeID:") + strlen("changeID:");
+        char *end;
+        ID = strtol(pos,&end,10);
+
+        char answer[50];
+
+        sprintf(answer,"changeID:IDACK\r");
+        UART_Write_String(answer);
+
+
+        memset(RX_buffer,0,strlen(RX_buffer));
+        ix = 0;
+        return 1;
+    }
+    else if(strstr(RX_buffer,"changeName:")!=((void*)0)){
+        char *txt = strstr(RX_buffer,"changeName:") + strlen("changeName:");
+        sprintf(name,"%s%d",txt,ID);
+
+
+        char answer[50];
+        sprintf(answer,"changeName:nameACK\r");
+        UART_Write_String(answer);
+
+        _delay((unsigned long)((100)*(16000000/4000.0)));
+
+
+        RN4870_changeName(name);
+# 262 "main_ble.c"
         return 1;
     }
     return 0;

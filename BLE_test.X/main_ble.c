@@ -27,6 +27,9 @@
 #include <string.h>
 
 /*  Global variables*/
+int ID = 0;
+char name[50] = "SENSOR";
+    
 char UART_RX;
 char RX_buffer[500];
 char *expected;
@@ -90,8 +93,8 @@ void main(void)
     TRISBbits.RB5 = 0;
     TRISCbits.RC0 = 1;
     
-    status = RN4870_changeName("BLEep");
-    UART_RN4870_mode = false;
+    //status = RN4870_changeName("theBLEatles");
+    UART_Write_String("Start\n");
     
     while (1)
     {
@@ -158,6 +161,8 @@ void UART_Write_String(char *buffer){
 }
 
 char RN4870_changeName(char *name){
+    UART_RN4870_mode = true;                    // Enter RN4870 mode to compare responses
+    
     UART_Write_String("$$$");                   // Enter command mode
     expected = "CMD";                           // Specify expected response 
     while(!UART_RX){
@@ -184,28 +189,78 @@ char RN4870_changeName(char *name){
     expected = "Rebooting";                     // Specify expected response
     while(!UART_RX);                            // Wait for BLE module to respond
 
+    UART_RN4870_mode = false;
+        
     return 1;                                   // Confirm change
 }
 
-int packetHandler(){
+int packetHandler(){    
     if(strstr(RX_buffer,"hey")!=NULL){
         UART_Write_String("hallo\n");
+        
+        // reset UART RX buffer
         memset(RX_buffer,0,strlen(RX_buffer));
         ix = 0;
         return 1;
     }
     else if(strstr(RX_buffer,"hello there")!=NULL){
         UART_Write_String("General Kenobi\n");
+                
+        // reset UART RX buffer
         memset(RX_buffer,0,strlen(RX_buffer));
         ix = 0;
         return 1;
     }
     else if(strstr(RX_buffer,"temp")!=NULL){
-        UART_Write_String("veel te werm\n");
+        short int temp = 25;
+        char answer[20];
+        sprintf(answer,"The temperature is %i\r",temp);
+        UART_Write_String(answer);    
+        
+        // reset UART RX buffer
         memset(RX_buffer,0,strlen(RX_buffer));
         ix = 0;
         return 1;
     }
+    else if(strstr(RX_buffer,"changeID:")!=NULL){
+        char *pos = strstr(RX_buffer,"changeID:") + strlen("changeID:");
+        char *end;
+        ID = strtol(pos,&end,10);
+        
+        char answer[50];
+        //sprintf(answer,"The id is %d\n",ID);
+        sprintf(answer,"changeID:IDACK\r");
+        UART_Write_String(answer);
+                
+        // reset UART RX buffer
+        memset(RX_buffer,0,strlen(RX_buffer));
+        ix = 0;
+        return 1;
+    }  
+    else if(strstr(RX_buffer,"changeName:")!=NULL){
+        char *txt = strstr(RX_buffer,"changeName:") + strlen("changeName:");        
+        sprintf(name,"%s%d",txt,ID);
+
+        // send back ACK
+        char answer[50];
+        sprintf(answer,"changeName:nameACK\r");
+        UART_Write_String(answer);
+        
+        __delay_ms(100); // wait 100ms(datasheet) so the RN4870 can separate the data and commands
+        
+        // change the name of the BLE module as well
+        RN4870_changeName(name);
+        
+        /*char answer[50];
+        printf(answer,"The id is now %d\n",ID);
+        UART_Write_String(answer);
+        sprintf(answer,"The name is %s\n",name);
+        UART_Write_String(answer);
+        sprintf(answer,"%s%d\n",name,ID);
+        UART_Write_String(answer);*/
+        
+        return 1;
+    }    
     return 0;
 }
 /**
