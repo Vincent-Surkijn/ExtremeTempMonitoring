@@ -1,0 +1,1299 @@
+
+
+Microchip MPLAB XC8 Assembler V2.05 build -831301201 
+                                                                                               Mon Apr 26 16:50:17 2021
+
+Microchip MPLAB XC8 C Compiler v2.05 (Free license) build 20181220022703 Og1 
+     1                           	processor	18F25K50
+     2                           	fnconf	rparam,??,?,0
+     3                           	opt	pw 120
+     4                           	opt	flic
+     5                           	psect	smallconst,global,reloc=2,class=SMALLCONST,delta=1,noexec
+     6                           	psect	cinit,global,reloc=2,class=CODE,delta=1
+     7                           	psect	bssCOMRAM,global,class=COMRAM,space=1,delta=1,noexec
+     8                           	psect	bssBIGRAM,global,class=BIGRAM,space=1,delta=1,lowdata,noexec
+     9                           	psect	cstackCOMRAM,global,class=COMRAM,space=1,delta=1,noexec
+    10                           	psect	text0,global,reloc=2,class=CODE,delta=1
+    11                           	psect	text1,global,reloc=2,class=CODE,delta=1
+    12                           	psect	text2,global,reloc=2,class=CODE,delta=1
+    13                           	psect	text3,global,reloc=2,class=CODE,delta=1
+    14                           	psect	text4,global,reloc=2,class=CODE,delta=1,group=2
+    15                           	psect	text5,global,reloc=2,class=CODE,delta=1
+    16                           	psect	text6,global,reloc=2,class=CODE,delta=1
+    17                           	psect	intcode,global,reloc=2,class=CODE,delta=1
+    18                           	psect	intsave_regs,global,class=BIGRAM,space=1,delta=1,noexec
+    19                           	psect	rparam,global,class=COMRAM,space=1,delta=1,noexec
+    20                           	psect	temp,global,ovrld,common,class=COMRAM,space=1,delta=1
+    21  0000                     
+    22                           ; Version 2.05
+    23                           ; Generated 20/12/2018 GMT
+    24                           ; 
+    25                           ; Copyright © 2018, Microchip Technology Inc. and its subsidiaries ("Microchip")
+    26                           ; All rights reserved.
+    27                           ; 
+    28                           ; This software is developed by Microchip Technology Inc. and its subsidiaries ("Microch
+      +                          ip").
+    29                           ; 
+    30                           ; Redistribution and use in source and binary forms, with or without modification, are
+    31                           ; permitted provided that the following conditions are met:
+    32                           ; 
+    33                           ;     1. Redistributions of source code must retain the above copyright notice, this lis
+      +                          t of
+    34                           ;        conditions and the following disclaimer.
+    35                           ; 
+    36                           ;     2. Redistributions in binary form must reproduce the above copyright notice, this 
+      +                          list
+    37                           ;        of conditions and the following disclaimer in the documentation and/or other
+    38                           ;        materials provided with the distribution.
+    39                           ; 
+    40                           ;     3. Microchip's name may not be used to endorse or promote products derived from th
+      +                          is
+    41                           ;        software without specific prior written permission.
+    42                           ; 
+    43                           ; THIS SOFTWARE IS PROVIDED BY MICROCHIP "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES,
+    44                           ; INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS F
+      +                          OR
+    45                           ; PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL MICROCHIP BE LIABLE FOR ANY DIRECT, INDIREC
+      +                          T,
+    46                           ; INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING BUT NOT LIMITED TO
+    47                           ; PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA OR PROFITS; OR BUSINESS
+    48                           ; INTERRUPTION) HOWSOEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, ST
+      +                          RICT
+    49                           ; LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE U
+      +                          SE OF
+    50                           ; THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+    51                           ; 
+    52                           ; 
+    53                           ; Code-generator required, PIC18F25K50 Definitions
+    54                           ; 
+    55                           ; SFR Addresses
+    56  0000                     _ANSELBbits	set	3932
+    57  0000                     _ANSELA	set	3931
+    58  0000                     _ANSELB	set	3932
+    59  0000                     _ANSELC	set	3933
+    60  0000                     _TXREG1	set	4013
+    61  0000                     _IPR1bits	set	3999
+    62  0000                     _PIE1bits	set	3997
+    63  0000                     _SPBRG1	set	4015
+    64  0000                     _BAUDCON1bits	set	4024
+    65  0000                     _RCSTA1bits	set	4011
+    66  0000                     _TXSTA1bits	set	4012
+    67  0000                     _IOCBbits	set	3974
+    68  0000                     _INTCON2bits	set	4081
+    69  0000                     _RCONbits	set	4048
+    70  0000                     _TRISBbits	set	3987
+    71  0000                     _PORTBbits	set	3969
+    72  0000                     _ACTCON	set	4021
+    73  0000                     _OSCTUNE	set	3995
+    74  0000                     _OSCCON2	set	4050
+    75  0000                     _OSCCON	set	4051
+    76  0000                     _LATC	set	3979
+    77  0000                     _LATB	set	3978
+    78  0000                     _LATA	set	3977
+    79  0000                     _TRISCbits	set	3988
+    80  0000                     _TRISAbits	set	3986
+    81  0000                     _LATAbits	set	3977
+    82  0000                     _RCREG1	set	4014
+    83  0000                     _PIR1bits	set	3998
+    84  0000                     _INTCONbits	set	4082
+    85                           
+    86                           	psect	smallconst
+    87  001056                     __psmallconst:
+    88                           	opt callstack 0
+    89  001056  00                 	db	0
+    90  001057                     STR_1:
+    91  001057  47                 	db	71	;'G'
+    92  001058  6F                 	db	111	;'o'
+    93  001059  6F                 	db	111	;'o'
+    94  00105A  64                 	db	100	;'d'
+    95  00105B  20                 	db	32
+    96  00105C  6E                 	db	110	;'n'
+    97  00105D  69                 	db	105	;'i'
+    98  00105E  67                 	db	103	;'g'
+    99  00105F  68                 	db	104	;'h'
+   100  001060  74                 	db	116	;'t'
+   101  001061  0A                 	db	10
+   102  001062  00                 	db	0
+   103  001063                     STR_2:
+   104  001063  0A                 	db	10
+   105  001064  41                 	db	65	;'A'
+   106  001065  77                 	db	119	;'w'
+   107  001066  61                 	db	97	;'a'
+   108  001067  6B                 	db	107	;'k'
+   109  001068  65                 	db	101	;'e'
+   110  001069  0A                 	db	10
+   111  00106A  00                 	db	0
+   112  00106B  00                 	db	0	; dummy byte at the end
+   113  0000                     
+   114                           ; #config settings
+   115                           
+   116                           	psect	cinit
+   117  00117C                     __pcinit:
+   118                           	opt callstack 0
+   119  00117C                     start_initialization:
+   120                           	opt callstack 0
+   121  00117C                     __initialization:
+   122                           	opt callstack 0
+   123                           
+   124                           ; Clear objects allocated to BIGRAM (500 bytes)
+   125  00117C  EE06  F00C         	lfsr	0,__pbssBIGRAM
+   126  001180  EE11 F0F4          	lfsr	1,500
+   127  001184                     clear_0:
+   128  001184  6AEE               	clrf	postinc0,c
+   129  001186  50E5               	movf	postdec1,w,c
+   130  001188  50E1               	movf	fsr1l,w,c
+   131  00118A  E1FC               	bnz	clear_0
+   132  00118C  50E2               	movf	fsr1h,w,c
+   133  00118E  E1FA               	bnz	clear_0
+   134                           
+   135                           ; Clear objects allocated to COMRAM (8 bytes)
+   136  001190  EE00  F010         	lfsr	0,__pbssCOMRAM
+   137  001194  0E08               	movlw	8
+   138  001196                     clear_1:
+   139  001196  6AEE               	clrf	postinc0,c
+   140  001198  06E8               	decf	wreg,f,c
+   141  00119A  E1FD               	bnz	clear_1
+   142  00119C                     end_of_initialization:
+   143                           	opt callstack 0
+   144  00119C                     __end_of__initialization:
+   145                           	opt callstack 0
+   146  00119C  9018               	bcf	int$flags,0,c	;clear compiler interrupt flag (level 1)
+   147  00119E  9218               	bcf	int$flags,1,c	;clear compiler interrupt flag (level 2)
+   148  0011A0  0E00               	movlw	low (__Lmediumconst shr (0+16))
+   149  0011A2  6EF8               	movwf	tblptru,c
+   150  0011A4  0100               	movlb	0
+   151  0011A6  EF6A  F008         	goto	_main	;jump to C main() function
+   152                           
+   153                           	psect	bssCOMRAM
+   154  000010                     __pbssCOMRAM:
+   155                           	opt callstack 0
+   156  000010                     _ix:
+   157                           	opt callstack 0
+   158  000010                     	ds	2
+   159  000012                     _expected:
+   160                           	opt callstack 0
+   161  000012                     	ds	2
+   162  000014                     _UART_RX:
+   163                           	opt callstack 0
+   164  000014                     	ds	1
+   165  000015                     _status:
+   166                           	opt callstack 0
+   167  000015                     	ds	1
+   168  000016                     _drdy:
+   169                           	opt callstack 0
+   170  000016                     	ds	1
+   171  000017                     _cycle:
+   172                           	opt callstack 0
+   173  000017                     	ds	1
+   174                           
+   175                           	psect	bssBIGRAM
+   176  00060C                     __pbssBIGRAM:
+   177                           	opt callstack 0
+   178  00060C                     _RX_buffer:
+   179                           	opt callstack 0
+   180  00060C                     	ds	500
+   181                           
+   182                           	psect	cstackCOMRAM
+   183  000001                     __pcstackCOMRAM:
+   184                           	opt callstack 0
+   185  000001                     ??_high_ISR:
+   186  000001                     
+   187                           ; 1 bytes @ 0x0
+   188  000001                     	ds	2
+   189  000003                     ?_strlen:
+   190                           	opt callstack 0
+   191  000003                     UART_Write@data:
+   192                           	opt callstack 0
+   193  000003                     strlen@s:
+   194                           	opt callstack 0
+   195                           
+   196                           ; 2 bytes @ 0x2
+   197  000003                     	ds	2
+   198  000005                     strlen@a:
+   199                           	opt callstack 0
+   200                           
+   201                           ; 2 bytes @ 0x4
+   202  000005                     	ds	2
+   203  000007                     UART_Write_String@buffer:
+   204                           	opt callstack 0
+   205                           
+   206                           ; 2 bytes @ 0x6
+   207  000007                     	ds	2
+   208  000009                     ??_UART_Write_String:
+   209                           
+   210                           ; 1 bytes @ 0x8
+   211  000009                     	ds	2
+   212  00000B                     UART_Write_String@i:
+   213                           	opt callstack 0
+   214                           
+   215                           ; 2 bytes @ 0xA
+   216  00000B                     	ds	2
+   217  00000D                     UART_Write_String@size:
+   218                           	opt callstack 0
+   219                           
+   220                           ; 2 bytes @ 0xC
+   221  00000D                     	ds	2
+   222  00000F                     ??_main:
+   223                           
+   224                           ; 1 bytes @ 0xE
+   225  00000F                     	ds	1
+   226                           
+   227 ;;
+   228 ;;Main: autosize = 0, tempsize = 1, incstack = 0, save=0
+   229 ;;
+   230 ;; *************** function _main *****************
+   231 ;; Defined at:
+   232 ;;		line 58 in file "D:/School/Unief/Jaar_3/Tweede_semester/EE5/UART_Sleep_test.X/UART_Sleep_main.c"
+   233 ;; Parameters:    Size  Location     Type
+   234 ;;		None
+   235 ;; Auto vars:     Size  Location     Type
+   236 ;;		None
+   237 ;; Return value:  Size  Location     Type
+   238 ;;                  1    wreg      void 
+   239 ;; Registers used:
+   240 ;;		wreg, fsr0l, fsr0h, status,2, status,0, tblptrl, tblptrh, tblptru, cstack
+   241 ;; Tracked objects:
+   242 ;;		On entry : 0/0
+   243 ;;		On exit  : 0/0
+   244 ;;		Unchanged: 0/0
+   245 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7
+   246 ;;      Params:         0       0       0       0       0       0       0       0       0
+   247 ;;      Locals:         0       0       0       0       0       0       0       0       0
+   248 ;;      Temps:          1       0       0       0       0       0       0       0       0
+   249 ;;      Totals:         1       0       0       0       0       0       0       0       0
+   250 ;;Total ram usage:        1 bytes
+   251 ;; Hardware stack levels required when called:    3
+   252 ;; This function calls:
+   253 ;;		_UART_Init
+   254 ;;		_UART_Write_String
+   255 ;;		_init_chip
+   256 ;;		_init_interrupts
+   257 ;; This function is called by:
+   258 ;;		Startup code after reset
+   259 ;; This function uses a non-reentrant model
+   260 ;;
+   261                           
+   262                           	psect	text0
+   263  0010D4                     __ptext0:
+   264                           	opt callstack 0
+   265  0010D4                     _main:
+   266                           	opt callstack 28
+   267                           
+   268                           ;D:/School/Unief/Jaar_3/Tweede_semester/EE5/UART_Sleep_test.X/UART_Sleep_main.c: 59:    
+      +                           init_chip();
+   269                           
+   270                           ;incstack = 0
+   271  0010D4  ECD5  F008         	call	_init_chip	;wreg free
+   272                           
+   273                           ;D:/School/Unief/Jaar_3/Tweede_semester/EE5/UART_Sleep_test.X/UART_Sleep_main.c: 62:    
+      +                           TRISAbits.RA1 = 0;
+   274  0010D8  9292               	bcf	3986,1,c	;volatile
+   275                           
+   276                           ;D:/School/Unief/Jaar_3/Tweede_semester/EE5/UART_Sleep_test.X/UART_Sleep_main.c: 63:    
+      +                           TRISAbits.RA2 = 0;
+   277  0010DA  9492               	bcf	3986,2,c	;volatile
+   278                           
+   279                           ;D:/School/Unief/Jaar_3/Tweede_semester/EE5/UART_Sleep_test.X/UART_Sleep_main.c: 64:    
+      +                           TRISAbits.RA3 = 0;
+   280  0010DC  9692               	bcf	3986,3,c	;volatile
+   281                           
+   282                           ;D:/School/Unief/Jaar_3/Tweede_semester/EE5/UART_Sleep_test.X/UART_Sleep_main.c: 65:    
+      +                           TRISCbits.RC1 = 0;
+   283  0010DE  9294               	bcf	3988,1,c	;volatile
+   284                           
+   285                           ;D:/School/Unief/Jaar_3/Tweede_semester/EE5/UART_Sleep_test.X/UART_Sleep_main.c: 66:    
+      +                           TRISCbits.RC2 = 0;
+   286  0010E0  9494               	bcf	3988,2,c	;volatile
+   287                           
+   288                           ;D:/School/Unief/Jaar_3/Tweede_semester/EE5/UART_Sleep_test.X/UART_Sleep_main.c: 69:    
+      +                           UART_Init();
+   289  0010E2  ECEB  F008         	call	_UART_Init	;wreg free
+   290                           
+   291                           ;D:/School/Unief/Jaar_3/Tweede_semester/EE5/UART_Sleep_test.X/UART_Sleep_main.c: 70:    
+      +                           _delay(100000);
+   292  0010E6  0E82               	movlw	130
+   293  0010E8  6E0F               	movwf	??_main& (0+255),c
+   294  0010EA  0EDE               	movlw	222
+   295  0010EC                     u157:
+   296  0010EC  2EE8               	decfsz	wreg,f,c
+   297  0010EE  D7FE               	bra	u157
+   298  0010F0  2E0F               	decfsz	??_main& (0+255),f,c
+   299  0010F2  D7FC               	bra	u157
+   300                           
+   301                           ;D:/School/Unief/Jaar_3/Tweede_semester/EE5/UART_Sleep_test.X/UART_Sleep_main.c: 71:    
+      +                           UART_Write_String("Good night\n");
+   302  0010F4  0E57               	movlw	low STR_1
+   303  0010F6  6E07               	movwf	UART_Write_String@buffer,c
+   304  0010F8  0E10               	movlw	high STR_1
+   305  0010FA  6E08               	movwf	UART_Write_String@buffer+1,c
+   306  0010FC  EC36  F008         	call	_UART_Write_String	;wreg free
+   307  001100                     l949:
+   308                           
+   309                           ;D:/School/Unief/Jaar_3/Tweede_semester/EE5/UART_Sleep_test.X/UART_Sleep_main.c: 74:    
+      +                           init_interrupts();
+   310  001100  ECFD  F008         	call	_init_interrupts	;wreg free
+   311  001104                     l951:
+   312                           
+   313                           ;D:/School/Unief/Jaar_3/Tweede_semester/EE5/UART_Sleep_test.X/UART_Sleep_main.c: 82:    
+      +                               if(cycle){
+   314  001104  5017               	movf	_cycle,w,c
+   315  001106  B4D8               	btfsc	status,2,c
+   316  001108  D7FD               	goto	l951
+   317                           
+   318                           ;D:/School/Unief/Jaar_3/Tweede_semester/EE5/UART_Sleep_test.X/UART_Sleep_main.c: 84:    
+      +                                   UART_Init();
+   319  00110A  ECEB  F008         	call	_UART_Init	;wreg free
+   320                           
+   321                           ;D:/School/Unief/Jaar_3/Tweede_semester/EE5/UART_Sleep_test.X/UART_Sleep_main.c: 85:    
+      +                                   _delay(100000);
+   322  00110E  0E82               	movlw	130
+   323  001110  6E0F               	movwf	??_main& (0+255),c
+   324  001112  0EDE               	movlw	222
+   325  001114                     u167:
+   326  001114  2EE8               	decfsz	wreg,f,c
+   327  001116  D7FE               	bra	u167
+   328  001118  2E0F               	decfsz	??_main& (0+255),f,c
+   329  00111A  D7FC               	bra	u167
+   330                           
+   331                           ;D:/School/Unief/Jaar_3/Tweede_semester/EE5/UART_Sleep_test.X/UART_Sleep_main.c: 86:    
+      +                                   UART_Write_String(RX_buffer);
+   332  00111C  0E0C               	movlw	low _RX_buffer
+   333  00111E  6E07               	movwf	UART_Write_String@buffer,c
+   334  001120  0E06               	movlw	high _RX_buffer
+   335  001122  6E08               	movwf	UART_Write_String@buffer+1,c
+   336  001124  EC36  F008         	call	_UART_Write_String	;wreg free
+   337                           
+   338                           ;D:/School/Unief/Jaar_3/Tweede_semester/EE5/UART_Sleep_test.X/UART_Sleep_main.c: 87:    
+      +                                   UART_Write_String("\nAwake\n");
+   339  001128  0E63               	movlw	low STR_2
+   340  00112A  6E07               	movwf	UART_Write_String@buffer,c
+   341  00112C  0E10               	movlw	high STR_2
+   342  00112E  6E08               	movwf	UART_Write_String@buffer+1,c
+   343  001130  EC36  F008         	call	_UART_Write_String	;wreg free
+   344                           
+   345                           ;D:/School/Unief/Jaar_3/Tweede_semester/EE5/UART_Sleep_test.X/UART_Sleep_main.c: 91:    
+      +                                   cycle = 0;
+   346  001134  0E00               	movlw	0
+   347  001136  6E17               	movwf	_cycle,c
+   348  001138  D7E3               	goto	l949
+   349  00113A                     __end_of_main:
+   350                           	opt callstack 0
+   351                           
+   352 ;; *************** function _init_interrupts *****************
+   353 ;; Defined at:
+   354 ;;		line 125 in file "D:/School/Unief/Jaar_3/Tweede_semester/EE5/UART_Sleep_test.X/UART_Sleep_main.c"
+   355 ;; Parameters:    Size  Location     Type
+   356 ;;		None
+   357 ;; Auto vars:     Size  Location     Type
+   358 ;;		None
+   359 ;; Return value:  Size  Location     Type
+   360 ;;                  1    wreg      void 
+   361 ;; Registers used:
+   362 ;;		None
+   363 ;; Tracked objects:
+   364 ;;		On entry : 0/0
+   365 ;;		On exit  : 0/0
+   366 ;;		Unchanged: 0/0
+   367 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7
+   368 ;;      Params:         0       0       0       0       0       0       0       0       0
+   369 ;;      Locals:         0       0       0       0       0       0       0       0       0
+   370 ;;      Temps:          0       0       0       0       0       0       0       0       0
+   371 ;;      Totals:         0       0       0       0       0       0       0       0       0
+   372 ;;Total ram usage:        0 bytes
+   373 ;; Hardware stack levels used:    1
+   374 ;; Hardware stack levels required when called:    1
+   375 ;; This function calls:
+   376 ;;		Nothing
+   377 ;; This function is called by:
+   378 ;;		_main
+   379 ;; This function uses a non-reentrant model
+   380 ;;
+   381                           
+   382                           	psect	text1
+   383  0011FA                     __ptext1:
+   384                           	opt callstack 0
+   385  0011FA                     _init_interrupts:
+   386                           	opt callstack 29
+   387                           
+   388                           ;D:/School/Unief/Jaar_3/Tweede_semester/EE5/UART_Sleep_test.X/UART_Sleep_main.c: 126:   
+      +                            PORTBbits.RB5 = 1;
+   389                           
+   390                           ;incstack = 0
+   391  0011FA  8A81               	bsf	3969,5,c	;volatile
+   392                           
+   393                           ;D:/School/Unief/Jaar_3/Tweede_semester/EE5/UART_Sleep_test.X/UART_Sleep_main.c: 127:   
+      +                            TRISBbits.RB5 = 1;
+   394  0011FC  8A93               	bsf	3987,5,c	;volatile
+   395                           
+   396                           ;D:/School/Unief/Jaar_3/Tweede_semester/EE5/UART_Sleep_test.X/UART_Sleep_main.c: 128:   
+      +                            ANSELBbits.ANSB5 = 0;
+   397  0011FE  010F               	movlb	15	; () banked
+   398  001200  9B5C               	bcf	92,5,b	;volatile
+   399                           
+   400                           ;D:/School/Unief/Jaar_3/Tweede_semester/EE5/UART_Sleep_test.X/UART_Sleep_main.c: 130:   
+      +                            INTCONbits.GIE = 0;
+   401  001202  9EF2               	bcf	4082,7,c	;volatile
+   402                           
+   403                           ;D:/School/Unief/Jaar_3/Tweede_semester/EE5/UART_Sleep_test.X/UART_Sleep_main.c: 131:   
+      +                            RCONbits.IPEN = 1;
+   404  001204  8ED0               	bsf	4048,7,c	;volatile
+   405                           
+   406                           ;D:/School/Unief/Jaar_3/Tweede_semester/EE5/UART_Sleep_test.X/UART_Sleep_main.c: 132:   
+      +                            INTCONbits.IOCIE = 1;
+   407  001206  86F2               	bsf	4082,3,c	;volatile
+   408                           
+   409                           ;D:/School/Unief/Jaar_3/Tweede_semester/EE5/UART_Sleep_test.X/UART_Sleep_main.c: 133:   
+      +                            INTCON2bits.IOCIP = 1;
+   410  001208  80F1               	bsf	4081,0,c	;volatile
+   411                           
+   412                           ;D:/School/Unief/Jaar_3/Tweede_semester/EE5/UART_Sleep_test.X/UART_Sleep_main.c: 134:   
+      +                            IOCBbits.IOCB5 = 1;
+   413  00120A  8A86               	bsf	3974,5,c	;volatile
+   414                           
+   415                           ;D:/School/Unief/Jaar_3/Tweede_semester/EE5/UART_Sleep_test.X/UART_Sleep_main.c: 136:   
+      +                            INTCONbits.IOCIF = 0;
+   416  00120C  90F2               	bcf	4082,0,c	;volatile
+   417                           
+   418                           ;D:/School/Unief/Jaar_3/Tweede_semester/EE5/UART_Sleep_test.X/UART_Sleep_main.c: 138:   
+      +                            INTCONbits.GIE = 1;
+   419  00120E  8EF2               	bsf	4082,7,c	;volatile
+   420                           
+   421                           ; BSR set to: 15
+   422  001210  0012               	return		;funcret
+   423  001212                     __end_of_init_interrupts:
+   424                           	opt callstack 0
+   425                           
+   426 ;; *************** function _init_chip *****************
+   427 ;; Defined at:
+   428 ;;		line 110 in file "D:/School/Unief/Jaar_3/Tweede_semester/EE5/UART_Sleep_test.X/UART_Sleep_main.c"
+   429 ;; Parameters:    Size  Location     Type
+   430 ;;		None
+   431 ;; Auto vars:     Size  Location     Type
+   432 ;;		None
+   433 ;; Return value:  Size  Location     Type
+   434 ;;                  1    wreg      void 
+   435 ;; Registers used:
+   436 ;;		wreg, status,2
+   437 ;; Tracked objects:
+   438 ;;		On entry : 0/0
+   439 ;;		On exit  : 0/0
+   440 ;;		Unchanged: 0/0
+   441 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7
+   442 ;;      Params:         0       0       0       0       0       0       0       0       0
+   443 ;;      Locals:         0       0       0       0       0       0       0       0       0
+   444 ;;      Temps:          0       0       0       0       0       0       0       0       0
+   445 ;;      Totals:         0       0       0       0       0       0       0       0       0
+   446 ;;Total ram usage:        0 bytes
+   447 ;; Hardware stack levels used:    1
+   448 ;; Hardware stack levels required when called:    1
+   449 ;; This function calls:
+   450 ;;		Nothing
+   451 ;; This function is called by:
+   452 ;;		_main
+   453 ;; This function uses a non-reentrant model
+   454 ;;
+   455                           
+   456                           	psect	text2
+   457  0011AA                     __ptext2:
+   458                           	opt callstack 0
+   459  0011AA                     _init_chip:
+   460                           	opt callstack 29
+   461                           
+   462                           ;D:/School/Unief/Jaar_3/Tweede_semester/EE5/UART_Sleep_test.X/UART_Sleep_main.c: 111:   
+      +                            ANSELC = 0x00;
+   463                           
+   464                           ; BSR set to: 15
+   465                           ;incstack = 0
+   466  0011AA  0E00               	movlw	0
+   467  0011AC  010F               	movlb	15	; () banked
+   468  0011AE  6F5D               	movwf	93,b	;volatile
+   469                           
+   470                           ;D:/School/Unief/Jaar_3/Tweede_semester/EE5/UART_Sleep_test.X/UART_Sleep_main.c: 112:   
+      +                            ANSELB = 0x00;
+   471  0011B0  0E00               	movlw	0
+   472  0011B2  6F5C               	movwf	92,b	;volatile
+   473                           
+   474                           ;D:/School/Unief/Jaar_3/Tweede_semester/EE5/UART_Sleep_test.X/UART_Sleep_main.c: 113:   
+      +                            ANSELA = 0x00;
+   475  0011B4  0E00               	movlw	0
+   476  0011B6  6F5B               	movwf	91,b	;volatile
+   477                           
+   478                           ;D:/School/Unief/Jaar_3/Tweede_semester/EE5/UART_Sleep_test.X/UART_Sleep_main.c: 115:   
+      +                            LATA = 0;
+   479  0011B8  0E00               	movlw	0
+   480  0011BA  6E89               	movwf	3977,c	;volatile
+   481                           
+   482                           ;D:/School/Unief/Jaar_3/Tweede_semester/EE5/UART_Sleep_test.X/UART_Sleep_main.c: 116:   
+      +                            LATB = 0;
+   483  0011BC  0E00               	movlw	0
+   484  0011BE  6E8A               	movwf	3978,c	;volatile
+   485                           
+   486                           ;D:/School/Unief/Jaar_3/Tweede_semester/EE5/UART_Sleep_test.X/UART_Sleep_main.c: 117:   
+      +                            LATC = 0;
+   487  0011C0  0E00               	movlw	0
+   488  0011C2  6E8B               	movwf	3979,c	;volatile
+   489                           
+   490                           ;D:/School/Unief/Jaar_3/Tweede_semester/EE5/UART_Sleep_test.X/UART_Sleep_main.c: 119:   
+      +                            OSCCON = 0x70;
+   491  0011C4  0E70               	movlw	112
+   492  0011C6  6ED3               	movwf	4051,c	;volatile
+   493                           
+   494                           ;D:/School/Unief/Jaar_3/Tweede_semester/EE5/UART_Sleep_test.X/UART_Sleep_main.c: 120:   
+      +                            OSCCON2 = 0x90;
+   495  0011C8  0E90               	movlw	144
+   496  0011CA  6ED2               	movwf	4050,c	;volatile
+   497                           
+   498                           ;D:/School/Unief/Jaar_3/Tweede_semester/EE5/UART_Sleep_test.X/UART_Sleep_main.c: 121:   
+      +                            OSCTUNE = 0x80;
+   499  0011CC  0E80               	movlw	128
+   500  0011CE  6E9B               	movwf	3995,c	;volatile
+   501                           
+   502                           ;D:/School/Unief/Jaar_3/Tweede_semester/EE5/UART_Sleep_test.X/UART_Sleep_main.c: 122:   
+      +                            ACTCON = 0x00;
+   503  0011D0  0E00               	movlw	0
+   504  0011D2  6EB5               	movwf	4021,c	;volatile
+   505                           
+   506                           ; BSR set to: 15
+   507  0011D4  0012               	return		;funcret
+   508  0011D6                     __end_of_init_chip:
+   509                           	opt callstack 0
+   510                           
+   511 ;; *************** function _UART_Write_String *****************
+   512 ;; Defined at:
+   513 ;;		line 190 in file "D:/School/Unief/Jaar_3/Tweede_semester/EE5/UART_Sleep_test.X/UART_Sleep_main.c"
+   514 ;; Parameters:    Size  Location     Type
+   515 ;;  buffer          2    6[COMRAM] PTR unsigned char 
+   516 ;;		 -> STR_2(8), STR_1(12), RX_buffer(500), 
+   517 ;; Auto vars:     Size  Location     Type
+   518 ;;  i               2   10[COMRAM] int 
+   519 ;;  size            2   12[COMRAM] volatile int 
+   520 ;; Return value:  Size  Location     Type
+   521 ;;                  1    wreg      void 
+   522 ;; Registers used:
+   523 ;;		wreg, fsr0l, fsr0h, status,2, status,0, tblptrl, tblptrh, tblptru, cstack
+   524 ;; Tracked objects:
+   525 ;;		On entry : 0/0
+   526 ;;		On exit  : 0/0
+   527 ;;		Unchanged: 0/0
+   528 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7
+   529 ;;      Params:         2       0       0       0       0       0       0       0       0
+   530 ;;      Locals:         4       0       0       0       0       0       0       0       0
+   531 ;;      Temps:          2       0       0       0       0       0       0       0       0
+   532 ;;      Totals:         8       0       0       0       0       0       0       0       0
+   533 ;;Total ram usage:        8 bytes
+   534 ;; Hardware stack levels used:    1
+   535 ;; Hardware stack levels required when called:    2
+   536 ;; This function calls:
+   537 ;;		_UART_Write
+   538 ;;		_strlen
+   539 ;; This function is called by:
+   540 ;;		_main
+   541 ;; This function uses a non-reentrant model
+   542 ;;
+   543                           
+   544                           	psect	text3
+   545  00106C                     __ptext3:
+   546                           	opt callstack 0
+   547  00106C                     _UART_Write_String:
+   548                           	opt callstack 28
+   549                           
+   550                           ;D:/School/Unief/Jaar_3/Tweede_semester/EE5/UART_Sleep_test.X/UART_Sleep_main.c: 191:   
+      +                            volatile int size = strlen(buffer);
+   551                           
+   552                           ; BSR set to: 15
+   553                           ;incstack = 0
+   554  00106C  C007  F003         	movff	UART_Write_String@buffer,strlen@s
+   555  001070  C008  F004         	movff	UART_Write_String@buffer+1,strlen@s+1
+   556  001074  EC9D  F008         	call	_strlen	;wreg free
+   557  001078  C003  F00D         	movff	?_strlen,UART_Write_String@size	;volatile
+   558  00107C  C004  F00E         	movff	?_strlen+1,UART_Write_String@size+1	;volatile
+   559                           
+   560                           ;D:/School/Unief/Jaar_3/Tweede_semester/EE5/UART_Sleep_test.X/UART_Sleep_main.c: 192:   
+      +                            for(int i = 0 ; i < size ; i++){
+   561  001080  0E00               	movlw	0
+   562  001082  6E0C               	movwf	UART_Write_String@i+1,c
+   563  001084  0E00               	movlw	0
+   564  001086  6E0B               	movwf	UART_Write_String@i,c
+   565  001088  D01A               	goto	l931
+   566  00108A                     l927:
+   567                           
+   568                           ;D:/School/Unief/Jaar_3/Tweede_semester/EE5/UART_Sleep_test.X/UART_Sleep_main.c: 193:   
+      +                              UART_Write(buffer[i]);
+   569  00108A  500B               	movf	UART_Write_String@i,w,c
+   570  00108C  2407               	addwf	UART_Write_String@buffer,w,c
+   571  00108E  6E09               	movwf	??_UART_Write_String& (0+255),c
+   572  001090  500C               	movf	UART_Write_String@i+1,w,c
+   573  001092  2008               	addwfc	UART_Write_String@buffer+1,w,c
+   574  001094  6E0A               	movwf	(??_UART_Write_String+1)& (0+255),c
+   575  001096  C009  FFF6         	movff	??_UART_Write_String,tblptrl
+   576  00109A  C00A  FFF7         	movff	??_UART_Write_String+1,tblptrh
+   577  00109E  6AF8               	clrf	tblptru,c
+   578  0010A0  0E07               	movlw	(high __ramtop+-1)
+   579  0010A2  64F7               	cpfsgt	tblptrh,c
+   580  0010A4  D003               	bra	u127
+   581  0010A6  0008               	tblrd		*
+   582  0010A8  50F5               	movf	tablat,w,c
+   583  0010AA  D005               	bra	u120
+   584  0010AC                     u127:
+   585  0010AC  CFF6 FFE9          	movff	tblptrl,fsr0l
+   586  0010B0  CFF7 FFEA          	movff	tblptrh,fsr0h
+   587  0010B4  50EF               	movf	indf0,w,c
+   588  0010B6                     u120:
+   589  0010B6  EC09  F009         	call	_UART_Write
+   590                           
+   591                           ;D:/School/Unief/Jaar_3/Tweede_semester/EE5/UART_Sleep_test.X/UART_Sleep_main.c: 194:   
+      +                            }
+   592  0010BA  4A0B               	infsnz	UART_Write_String@i,f,c
+   593  0010BC  2A0C               	incf	UART_Write_String@i+1,f,c
+   594  0010BE                     l931:
+   595  0010BE  500D               	movf	UART_Write_String@size,w,c	;volatile
+   596  0010C0  5C0B               	subwf	UART_Write_String@i,w,c
+   597  0010C2  500C               	movf	UART_Write_String@i+1,w,c
+   598  0010C4  0A80               	xorlw	128
+   599  0010C6  6E09               	movwf	??_UART_Write_String& (0+255),c
+   600  0010C8  500E               	movf	UART_Write_String@size+1,w,c	;volatile
+   601  0010CA  0A80               	xorlw	128
+   602  0010CC  5809               	subwfb	??_UART_Write_String& (0+255),w,c
+   603  0010CE  B0D8               	btfsc	status,0,c
+   604  0010D0  0012               	return	
+   605  0010D2  D7DB               	goto	l927
+   606  0010D4                     __end_of_UART_Write_String:
+   607                           	opt callstack 0
+   608                           
+   609 ;; *************** function _strlen *****************
+   610 ;; Defined at:
+   611 ;;		line 12 in file "C:\Program Files (x86)\Microchip\xc8\v2.05\pic\sources\c99\common\strlen.c"
+   612 ;; Parameters:    Size  Location     Type
+   613 ;;  s               2    2[COMRAM] PTR const unsigned char 
+   614 ;;		 -> STR_2(8), STR_1(12), RX_buffer(500), 
+   615 ;; Auto vars:     Size  Location     Type
+   616 ;;  a               2    4[COMRAM] PTR const unsigned char 
+   617 ;;		 -> STR_2(8), STR_1(12), RX_buffer(500), 
+   618 ;; Return value:  Size  Location     Type
+   619 ;;                  2    2[COMRAM] unsigned int 
+   620 ;; Registers used:
+   621 ;;		wreg, fsr0l, fsr0h, status,2, status,0, tblptrl, tblptrh, tblptru
+   622 ;; Tracked objects:
+   623 ;;		On entry : 0/0
+   624 ;;		On exit  : 0/0
+   625 ;;		Unchanged: 0/0
+   626 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7
+   627 ;;      Params:         2       0       0       0       0       0       0       0       0
+   628 ;;      Locals:         2       0       0       0       0       0       0       0       0
+   629 ;;      Temps:          0       0       0       0       0       0       0       0       0
+   630 ;;      Totals:         4       0       0       0       0       0       0       0       0
+   631 ;;Total ram usage:        4 bytes
+   632 ;; Hardware stack levels used:    1
+   633 ;; Hardware stack levels required when called:    1
+   634 ;; This function calls:
+   635 ;;		Nothing
+   636 ;; This function is called by:
+   637 ;;		_UART_Write_String
+   638 ;; This function uses a non-reentrant model
+   639 ;;
+   640                           
+   641                           	psect	text4
+   642  00113A                     __ptext4:
+   643                           	opt callstack 0
+   644  00113A                     _strlen:
+   645                           	opt callstack 28
+   646                           
+   647                           ;incstack = 0
+   648  00113A  C003  F005         	movff	strlen@s,strlen@a
+   649  00113E  C004  F006         	movff	strlen@s+1,strlen@a+1
+   650  001142  D002               	goto	l917
+   651  001144                     l915:
+   652  001144  4A03               	infsnz	strlen@s,f,c
+   653  001146  2A04               	incf	strlen@s+1,f,c
+   654  001148                     l917:
+   655  001148  C003  FFF6         	movff	strlen@s,tblptrl
+   656  00114C  C004  FFF7         	movff	strlen@s+1,tblptrh
+   657  001150  6AF8               	clrf	tblptru,c
+   658  001152  0E07               	movlw	(high __ramtop+-1)
+   659  001154  64F7               	cpfsgt	tblptrh,c
+   660  001156  D003               	bra	u107
+   661  001158  0008               	tblrd		*
+   662  00115A  50F5               	movf	tablat,w,c
+   663  00115C  D005               	bra	u100
+   664  00115E                     u107:
+   665  00115E  CFF6 FFE9          	movff	tblptrl,fsr0l
+   666  001162  CFF7 FFEA          	movff	tblptrh,fsr0h
+   667  001166  50EF               	movf	indf0,w,c
+   668  001168                     u100:
+   669  001168  0900               	iorlw	0
+   670  00116A  A4D8               	btfss	status,2,c
+   671  00116C  D7EB               	goto	l915
+   672  00116E  5005               	movf	strlen@a,w,c
+   673  001170  5C03               	subwf	strlen@s,w,c
+   674  001172  6E03               	movwf	?_strlen,c
+   675  001174  5006               	movf	strlen@a+1,w,c
+   676  001176  5804               	subwfb	strlen@s+1,w,c
+   677  001178  6E04               	movwf	?_strlen+1,c
+   678  00117A  0012               	return		;funcret
+   679  00117C                     __end_of_strlen:
+   680                           	opt callstack 0
+   681                           
+   682 ;; *************** function _UART_Write *****************
+   683 ;; Defined at:
+   684 ;;		line 182 in file "D:/School/Unief/Jaar_3/Tweede_semester/EE5/UART_Sleep_test.X/UART_Sleep_main.c"
+   685 ;; Parameters:    Size  Location     Type
+   686 ;;  data            1    wreg     unsigned char 
+   687 ;; Auto vars:     Size  Location     Type
+   688 ;;  data            1    2[COMRAM] unsigned char 
+   689 ;; Return value:  Size  Location     Type
+   690 ;;                  1    wreg      void 
+   691 ;; Registers used:
+   692 ;;		wreg, status,2
+   693 ;; Tracked objects:
+   694 ;;		On entry : 0/0
+   695 ;;		On exit  : 0/0
+   696 ;;		Unchanged: 0/0
+   697 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7
+   698 ;;      Params:         0       0       0       0       0       0       0       0       0
+   699 ;;      Locals:         1       0       0       0       0       0       0       0       0
+   700 ;;      Temps:          0       0       0       0       0       0       0       0       0
+   701 ;;      Totals:         1       0       0       0       0       0       0       0       0
+   702 ;;Total ram usage:        1 bytes
+   703 ;; Hardware stack levels used:    1
+   704 ;; Hardware stack levels required when called:    1
+   705 ;; This function calls:
+   706 ;;		Nothing
+   707 ;; This function is called by:
+   708 ;;		_UART_Write_String
+   709 ;; This function uses a non-reentrant model
+   710 ;;
+   711                           
+   712                           	psect	text5
+   713  001212                     __ptext5:
+   714                           	opt callstack 0
+   715  001212                     _UART_Write:
+   716                           	opt callstack 28
+   717                           
+   718                           ;incstack = 0
+   719                           ;UART_Write@data stored from wreg
+   720  001212  6E03               	movwf	UART_Write@data,c
+   721  001214                     
+   722                           ;D:/School/Unief/Jaar_3/Tweede_semester/EE5/UART_Sleep_test.X/UART_Sleep_main.c: 185:   
+      +                            while(!TXSTA1bits.TRMT);
+   723  001214  A2AC               	btfss	4012,1,c	;volatile
+   724  001216  D7FE               	goto	l807
+   725                           
+   726                           ;D:/School/Unief/Jaar_3/Tweede_semester/EE5/UART_Sleep_test.X/UART_Sleep_main.c: 186:   
+      +                            TXREG1 = data;
+   727  001218  C003  FFAD         	movff	UART_Write@data,4013	;volatile
+   728                           
+   729                           ;D:/School/Unief/Jaar_3/Tweede_semester/EE5/UART_Sleep_test.X/UART_Sleep_main.c: 187:   
+      +                            UART_RX = 0;
+   730  00121C  0E00               	movlw	0
+   731  00121E  6E14               	movwf	_UART_RX,c
+   732  001220  0012               	return		;funcret
+   733  001222                     __end_of_UART_Write:
+   734                           	opt callstack 0
+   735                           
+   736 ;; *************** function _UART_Init *****************
+   737 ;; Defined at:
+   738 ;;		line 150 in file "D:/School/Unief/Jaar_3/Tweede_semester/EE5/UART_Sleep_test.X/UART_Sleep_main.c"
+   739 ;; Parameters:    Size  Location     Type
+   740 ;;		None
+   741 ;; Auto vars:     Size  Location     Type
+   742 ;;		None
+   743 ;; Return value:  Size  Location     Type
+   744 ;;                  1    wreg      void 
+   745 ;; Registers used:
+   746 ;;		wreg, status,2
+   747 ;; Tracked objects:
+   748 ;;		On entry : 0/0
+   749 ;;		On exit  : 0/0
+   750 ;;		Unchanged: 0/0
+   751 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7
+   752 ;;      Params:         0       0       0       0       0       0       0       0       0
+   753 ;;      Locals:         0       0       0       0       0       0       0       0       0
+   754 ;;      Temps:          0       0       0       0       0       0       0       0       0
+   755 ;;      Totals:         0       0       0       0       0       0       0       0       0
+   756 ;;Total ram usage:        0 bytes
+   757 ;; Hardware stack levels used:    1
+   758 ;; Hardware stack levels required when called:    1
+   759 ;; This function calls:
+   760 ;;		Nothing
+   761 ;; This function is called by:
+   762 ;;		_main
+   763 ;; This function uses a non-reentrant model
+   764 ;;
+   765                           
+   766                           	psect	text6
+   767  0011D6                     __ptext6:
+   768                           	opt callstack 0
+   769  0011D6                     _UART_Init:
+   770                           	opt callstack 29
+   771                           
+   772                           ;D:/School/Unief/Jaar_3/Tweede_semester/EE5/UART_Sleep_test.X/UART_Sleep_main.c: 151:   
+      +                            TXSTA1bits.SYNC = 0;
+   773                           
+   774                           ;incstack = 0
+   775  0011D6  98AC               	bcf	4012,4,c	;volatile
+   776                           
+   777                           ;D:/School/Unief/Jaar_3/Tweede_semester/EE5/UART_Sleep_test.X/UART_Sleep_main.c: 152:   
+      +                            RCSTA1bits.SPEN = 1;
+   778  0011D8  8EAB               	bsf	4011,7,c	;volatile
+   779                           
+   780                           ;D:/School/Unief/Jaar_3/Tweede_semester/EE5/UART_Sleep_test.X/UART_Sleep_main.c: 158:   
+      +                            TXSTA1bits.BRGH = 1;
+   781  0011DA  84AC               	bsf	4012,2,c	;volatile
+   782                           
+   783                           ;D:/School/Unief/Jaar_3/Tweede_semester/EE5/UART_Sleep_test.X/UART_Sleep_main.c: 159:   
+      +                            BAUDCON1bits.BRG16 = 0;
+   784  0011DC  96B8               	bcf	4024,3,c	;volatile
+   785                           
+   786                           ;D:/School/Unief/Jaar_3/Tweede_semester/EE5/UART_Sleep_test.X/UART_Sleep_main.c: 160:   
+      +                            SPBRG1 = 25;
+   787  0011DE  0E19               	movlw	25
+   788  0011E0  6EAF               	movwf	4015,c	;volatile
+   789                           
+   790                           ;D:/School/Unief/Jaar_3/Tweede_semester/EE5/UART_Sleep_test.X/UART_Sleep_main.c: 163:   
+      +                            TRISCbits.RC6 = 1;
+   791  0011E2  8C94               	bsf	3988,6,c	;volatile
+   792                           
+   793                           ;D:/School/Unief/Jaar_3/Tweede_semester/EE5/UART_Sleep_test.X/UART_Sleep_main.c: 164:   
+      +                            TRISCbits.RC7 = 1;
+   794  0011E4  8E94               	bsf	3988,7,c	;volatile
+   795                           
+   796                           ;D:/School/Unief/Jaar_3/Tweede_semester/EE5/UART_Sleep_test.X/UART_Sleep_main.c: 167:   
+      +                            INTCONbits.GIE = 0;
+   797  0011E6  9EF2               	bcf	4082,7,c	;volatile
+   798                           
+   799                           ;D:/School/Unief/Jaar_3/Tweede_semester/EE5/UART_Sleep_test.X/UART_Sleep_main.c: 168:   
+      +                            RCONbits.IPEN = 1;
+   800  0011E8  8ED0               	bsf	4048,7,c	;volatile
+   801                           
+   802                           ;D:/School/Unief/Jaar_3/Tweede_semester/EE5/UART_Sleep_test.X/UART_Sleep_main.c: 169:   
+      +                            PIE1bits.RCIE = 1;
+   803  0011EA  8A9D               	bsf	3997,5,c	;volatile
+   804                           
+   805                           ;D:/School/Unief/Jaar_3/Tweede_semester/EE5/UART_Sleep_test.X/UART_Sleep_main.c: 170:   
+      +                            IPR1bits.RCIP = 1;
+   806  0011EC  8A9F               	bsf	3999,5,c	;volatile
+   807                           
+   808                           ;D:/School/Unief/Jaar_3/Tweede_semester/EE5/UART_Sleep_test.X/UART_Sleep_main.c: 172:   
+      +                            RCSTA1bits.CREN = 1;
+   809  0011EE  88AB               	bsf	4011,4,c	;volatile
+   810                           
+   811                           ;D:/School/Unief/Jaar_3/Tweede_semester/EE5/UART_Sleep_test.X/UART_Sleep_main.c: 175:   
+      +                            PIR1bits.RCIF = 0;
+   812  0011F0  9A9E               	bcf	3998,5,c	;volatile
+   813                           
+   814                           ;D:/School/Unief/Jaar_3/Tweede_semester/EE5/UART_Sleep_test.X/UART_Sleep_main.c: 176:   
+      +                            PIR1bits.TXIF = 0;
+   815  0011F2  989E               	bcf	3998,4,c	;volatile
+   816                           
+   817                           ;D:/School/Unief/Jaar_3/Tweede_semester/EE5/UART_Sleep_test.X/UART_Sleep_main.c: 178:   
+      +                            TXSTA1bits.TXEN = 1;
+   818  0011F4  8AAC               	bsf	4012,5,c	;volatile
+   819                           
+   820                           ;D:/School/Unief/Jaar_3/Tweede_semester/EE5/UART_Sleep_test.X/UART_Sleep_main.c: 179:   
+      +                            INTCONbits.GIE = 1;
+   821  0011F6  8EF2               	bsf	4082,7,c	;volatile
+   822  0011F8  0012               	return		;funcret
+   823  0011FA                     __end_of_UART_Init:
+   824                           	opt callstack 0
+   825                           
+   826 ;; *************** function _high_ISR *****************
+   827 ;; Defined at:
+   828 ;;		line 35 in file "D:/School/Unief/Jaar_3/Tweede_semester/EE5/UART_Sleep_test.X/UART_Sleep_main.c"
+   829 ;; Parameters:    Size  Location     Type
+   830 ;;		None
+   831 ;; Auto vars:     Size  Location     Type
+   832 ;;		None
+   833 ;; Return value:  Size  Location     Type
+   834 ;;                  1    wreg      void 
+   835 ;; Registers used:
+   836 ;;		wreg, fsr2l, fsr2h, status,2, status,0
+   837 ;; Tracked objects:
+   838 ;;		On entry : 0/0
+   839 ;;		On exit  : 0/0
+   840 ;;		Unchanged: 0/0
+   841 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7
+   842 ;;      Params:         0       0       0       0       0       0       0       0       0
+   843 ;;      Locals:         0       0       0       0       0       0       0       0       0
+   844 ;;      Temps:          2       0       0       0       0       0       0       0       0
+   845 ;;      Totals:         2       0       0       0       0       0       0       0       0
+   846 ;;Total ram usage:        2 bytes
+   847 ;; Hardware stack levels used:    1
+   848 ;; This function calls:
+   849 ;;		Nothing
+   850 ;; This function is called by:
+   851 ;;		Interrupt level 2
+   852 ;; This function uses a non-reentrant model
+   853 ;;
+   854                           
+   855                           	psect	intcode
+   856  001008                     __pintcode:
+   857                           	opt callstack 0
+   858  001008                     _high_ISR:
+   859                           	opt callstack 28
+   860                           
+   861                           ;incstack = 0
+   862  001008  8218               	bsf	btemp,1,c	;set compiler interrupt flag (level 2)
+   863  00100A  CFD9 F001          	movff	fsr2l,??_high_ISR
+   864  00100E  CFDA F002          	movff	fsr2h,??_high_ISR+1
+   865                           
+   866                           ;D:/School/Unief/Jaar_3/Tweede_semester/EE5/UART_Sleep_test.X/UART_Sleep_main.c: 37:    
+      +                           if(INTCONbits.IOCIF == 1){
+   867  001012  B0F2               	btfsc	4082,0,c	;volatile
+   868                           
+   869                           ;D:/School/Unief/Jaar_3/Tweede_semester/EE5/UART_Sleep_test.X/UART_Sleep_main.c: 39:    
+      +                               INTCONbits.IOCIF = 0;
+   870  001014  90F2               	bcf	4082,0,c	;volatile
+   871                           
+   872                           ;D:/School/Unief/Jaar_3/Tweede_semester/EE5/UART_Sleep_test.X/UART_Sleep_main.c: 42:    
+      +                           if (PIR1bits.RCIF == 1){
+   873                           
+   874                           ;D:/School/Unief/Jaar_3/Tweede_semester/EE5/UART_Sleep_test.X/UART_Sleep_main.c: 40:    
+      +                           }
+   875  001016  AA9E               	btfss	3998,5,c	;volatile
+   876  001018  D016               	goto	i2l92
+   877                           
+   878                           ;D:/School/Unief/Jaar_3/Tweede_semester/EE5/UART_Sleep_test.X/UART_Sleep_main.c: 44:    
+      +                               RX_buffer[ix] = RCREG1;
+   879  00101A  0E0C               	movlw	low _RX_buffer
+   880  00101C  2410               	addwf	_ix,w,c
+   881  00101E  6ED9               	movwf	fsr2l,c
+   882  001020  0E06               	movlw	high _RX_buffer
+   883  001022  2011               	addwfc	_ix+1,w,c
+   884  001024  6EDA               	movwf	fsr2h,c
+   885  001026  CFAE FFDF          	movff	4014,indf2	;volatile
+   886                           
+   887                           ;D:/School/Unief/Jaar_3/Tweede_semester/EE5/UART_Sleep_test.X/UART_Sleep_main.c: 45:    
+      +                               ix++;
+   888  00102A  4A10               	infsnz	_ix,f,c
+   889  00102C  2A11               	incf	_ix+1,f,c
+   890                           
+   891                           ;D:/School/Unief/Jaar_3/Tweede_semester/EE5/UART_Sleep_test.X/UART_Sleep_main.c: 46:    
+      +                               LATAbits.LA1 = 1;
+   892  00102E  8289               	bsf	3977,1,c	;volatile
+   893                           
+   894                           ;D:/School/Unief/Jaar_3/Tweede_semester/EE5/UART_Sleep_test.X/UART_Sleep_main.c: 48:    
+      +                               if(RCREG1=='\r'){
+   895  001030  0E0D               	movlw	13
+   896  001032  18AE               	xorwf	4014,w,c	;volatile
+   897  001034  A4D8               	btfss	status,2,c
+   898  001036  D007               	goto	i2l92
+   899                           
+   900                           ;D:/School/Unief/Jaar_3/Tweede_semester/EE5/UART_Sleep_test.X/UART_Sleep_main.c: 49:    
+      +                                   cycle = 1;
+   901  001038  0E01               	movlw	1
+   902  00103A  6E17               	movwf	_cycle,c
+   903                           
+   904                           ;D:/School/Unief/Jaar_3/Tweede_semester/EE5/UART_Sleep_test.X/UART_Sleep_main.c: 50:    
+      +                                   ix = 0;
+   905  00103C  0E00               	movlw	0
+   906  00103E  6E11               	movwf	_ix+1,c
+   907  001040  0E00               	movlw	0
+   908  001042  6E10               	movwf	_ix,c
+   909                           
+   910                           ;D:/School/Unief/Jaar_3/Tweede_semester/EE5/UART_Sleep_test.X/UART_Sleep_main.c: 51:    
+      +                                   LATAbits.LA1 = 1;
+   911  001044  8289               	bsf	3977,1,c	;volatile
+   912  001046                     i2l92:
+   913  001046  C002  FFDA         	movff	??_high_ISR+1,fsr2h
+   914  00104A  C001  FFD9         	movff	??_high_ISR,fsr2l
+   915  00104E  9218               	bcf	btemp,1,c	;clear compiler interrupt flag (level 2)
+   916  001050  0011               	retfie		f
+   917  001052                     __end_of_high_ISR:
+   918                           	opt callstack 0
+   919                           
+   920                           	psect	rparam
+   921  0000                     
+   922                           	psect	temp
+   923  000018                     btemp:
+   924                           	opt callstack 0
+   925  000018                     	ds	1
+   926  0000                     int$flags	set	btemp
+   927  0000                     wtemp8	set	btemp+1
+   928  0000                     ttemp5	set	btemp+1
+   929  0000                     ttemp6	set	btemp+4
+   930  0000                     ttemp7	set	btemp+8
+   931                           tosu	equ	0xFFF
+   932                           tosh	equ	0xFFE
+   933                           tosl	equ	0xFFD
+   934                           stkptr	equ	0xFFC
+   935                           pclatu	equ	0xFFB
+   936                           pclath	equ	0xFFA
+   937                           pcl	equ	0xFF9
+   938                           tblptru	equ	0xFF8
+   939                           tblptrh	equ	0xFF7
+   940                           tblptrl	equ	0xFF6
+   941                           tablat	equ	0xFF5
+   942                           prodh	equ	0xFF4
+   943                           prodl	equ	0xFF3
+   944                           indf0	equ	0xFEF
+   945                           postinc0	equ	0xFEE
+   946                           postdec0	equ	0xFED
+   947                           preinc0	equ	0xFEC
+   948                           plusw0	equ	0xFEB
+   949                           fsr0h	equ	0xFEA
+   950                           fsr0l	equ	0xFE9
+   951                           wreg	equ	0xFE8
+   952                           indf1	equ	0xFE7
+   953                           postinc1	equ	0xFE6
+   954                           postdec1	equ	0xFE5
+   955                           preinc1	equ	0xFE4
+   956                           plusw1	equ	0xFE3
+   957                           fsr1h	equ	0xFE2
+   958                           fsr1l	equ	0xFE1
+   959                           bsr	equ	0xFE0
+   960                           indf2	equ	0xFDF
+   961                           postinc2	equ	0xFDE
+   962                           postdec2	equ	0xFDD
+   963                           preinc2	equ	0xFDC
+   964                           plusw2	equ	0xFDB
+   965                           fsr2h	equ	0xFDA
+   966                           fsr2l	equ	0xFD9
+   967                           status	equ	0xFD8
+
+
+Data Sizes:
+    Strings     20
+    Constant    0
+    Data        0
+    BSS         508
+    Persistent  0
+    Stack       0
+
+Auto Spaces:
+    Space          Size  Autos    Used
+    COMRAM           94     15      23
+    BANK0           160      0       0
+    BANK1           256      0       0
+    BANK2           256      0       0
+    BANK3           256      0       0
+    BANK4           256      0       0
+    BANK5           256      0       0
+    BANK6           256      0       0
+    BANK7           256      0       0
+
+Pointer List with Targets:
+
+    expected	PTR unsigned char  size(2) Largest target is 0
+		 -> NULL(NULL[0]), 
+
+    strlen@s	PTR const unsigned char  size(2) Largest target is 500
+		 -> STR_2(CODE[8]), STR_1(CODE[12]), RX_buffer(BIGRAM[500]), 
+
+    strlen@a	PTR const unsigned char  size(2) Largest target is 500
+		 -> STR_2(CODE[8]), STR_1(CODE[12]), RX_buffer(BIGRAM[500]), 
+
+    UART_Write_String@buffer	PTR unsigned char  size(2) Largest target is 500
+		 -> STR_2(CODE[8]), STR_1(CODE[12]), RX_buffer(BIGRAM[500]), 
+
+
+Critical Paths under _main in COMRAM
+
+    _main->_UART_Write_String
+    _UART_Write_String->_strlen
+
+Critical Paths under _high_ISR in COMRAM
+
+    None.
+
+Critical Paths under _main in BANK0
+
+    None.
+
+Critical Paths under _high_ISR in BANK0
+
+    None.
+
+Critical Paths under _main in BANK1
+
+    None.
+
+Critical Paths under _high_ISR in BANK1
+
+    None.
+
+Critical Paths under _main in BANK2
+
+    None.
+
+Critical Paths under _high_ISR in BANK2
+
+    None.
+
+Critical Paths under _main in BANK3
+
+    None.
+
+Critical Paths under _high_ISR in BANK3
+
+    None.
+
+Critical Paths under _main in BANK4
+
+    None.
+
+Critical Paths under _high_ISR in BANK4
+
+    None.
+
+Critical Paths under _main in BANK5
+
+    None.
+
+Critical Paths under _high_ISR in BANK5
+
+    None.
+
+Critical Paths under _main in BANK6
+
+    None.
+
+Critical Paths under _high_ISR in BANK6
+
+    None.
+
+Critical Paths under _main in BANK7
+
+    None.
+
+Critical Paths under _high_ISR in BANK7
+
+    None.
+
+Call Graph Tables:
+
+ ---------------------------------------------------------------------------------
+ (Depth) Function   	        Calls       Base Space   Used Autos Params    Refs
+ ---------------------------------------------------------------------------------
+ (0) _main                                                 1     1      0     522
+                                             14 COMRAM     1     1      0
+                          _UART_Init
+                  _UART_Write_String
+                          _init_chip
+                    _init_interrupts
+ ---------------------------------------------------------------------------------
+ (1) _init_interrupts                                      0     0      0       0
+ ---------------------------------------------------------------------------------
+ (1) _init_chip                                            0     0      0       0
+ ---------------------------------------------------------------------------------
+ (1) _UART_Write_String                                    8     6      2     522
+                                              6 COMRAM     8     6      2
+                         _UART_Write
+                             _strlen
+ ---------------------------------------------------------------------------------
+ (2) _strlen                                               4     2      2     166
+                                              2 COMRAM     4     2      2
+ ---------------------------------------------------------------------------------
+ (2) _UART_Write                                           1     1      0      15
+                                              2 COMRAM     1     1      0
+ ---------------------------------------------------------------------------------
+ (1) _UART_Init                                            0     0      0       0
+ ---------------------------------------------------------------------------------
+ Estimated maximum stack depth 2
+ ---------------------------------------------------------------------------------
+ (Depth) Function   	        Calls       Base Space   Used Autos Params    Refs
+ ---------------------------------------------------------------------------------
+ (3) _high_ISR                                             2     2      0       0
+                                              0 COMRAM     2     2      0
+ ---------------------------------------------------------------------------------
+ Estimated maximum stack depth 3
+ ---------------------------------------------------------------------------------
+
+ Call Graph Graphs:
+
+ _main (ROOT)
+   _UART_Init
+   _UART_Write_String
+     _UART_Write
+     _strlen
+   _init_chip
+   _init_interrupts
+
+ _high_ISR (ROOT)
+
+ Address spaces:
+Name               Size   Autos  Total    Cost      Usage
+BIGRAM             7FF      0     1F4      21       24.4%
+EEDATA             100      0       0       0        0.0%
+BITBANK7           100      0       0      19        0.0%
+BANK7              100      0       0      20        0.0%
+BITBANK6           100      0       0      17        0.0%
+BANK6              100      0       0      18        0.0%
+BITBANK5           100      0       0      15        0.0%
+BANK5              100      0       0      16        0.0%
+BITBANK4           100      0       0      13        0.0%
+BANK4              100      0       0      14        0.0%
+BITBANK3           100      0       0      11        0.0%
+BANK3              100      0       0      12        0.0%
+BITBANK2           100      0       0       9        0.0%
+BANK2              100      0       0      10        0.0%
+BITBANK1           100      0       0       7        0.0%
+BANK1              100      0       0       8        0.0%
+BITBANK0            A0      0       0       4        0.0%
+BANK0               A0      0       0       5        0.0%
+BITCOMRAM           5E      0       0       0        0.0%
+COMRAM              5E      F      17       1       24.5%
+BITSFR_1             0      0       0     200        0.0%
+SFR_1                0      0       0     200        0.0%
+BITSFR               0      0       0     200        0.0%
+SFR                  0      0       0     200        0.0%
+STACK                0      0       0       2        0.0%
+NULL                 0      0       0       0        0.0%
+ABS                  0      0      17       6        0.0%
+DATA                 0      0     20B       3        0.0%
+CODE                 0      0       0       0        0.0%
+
+
+Microchip Technology PIC18 Macro Assembler V2.05 build -831301201 
+Symbol Table                                                                                   Mon Apr 26 16:50:17 2021
+
+   UART_Write_String@buffer 0007                          _ix 0010  __size_of_UART_Write_String 0068  
+                       l807 1214                         l915 1144                         l931 10BE  
+                       l917 1148                         l927 108A                         l951 1104  
+                       l949 1100           ??_init_interrupts 0003                         u100 1168  
+                       u120 10B6                         u107 115E                         u127 10AC  
+                       u157 10EC                         u167 1114                         wreg 000FE8  
+                _TXSTA1bits 000FAC                        STR_1 1057                        STR_2 1063  
+                      _LATA 000F89                        _LATB 000F8A                        _LATC 000F8B  
+                      i2l92 1046                        _drdy 0016                        _main 10D4  
+                      fsr0h 000FEA                        fsr1h 000FE2                        indf0 000FEF  
+                      fsr2h 000FDA                        fsr0l 000FE9                        indf2 000FDF  
+                      fsr1l 000FE1                        fsr2l 000FD9                        btemp 0018  
+                      start 1052                ___param_bank 000000                _BAUDCON1bits 000FB8  
+                     ?_main 0001                 ?_UART_Write 0001          __size_of_UART_Init 0024  
+                     _cycle 0017                       tablat 000FF5                       ttemp5 0019  
+                     ttemp6 001C                       ttemp7 0020                       status 000FD8  
+                     wtemp8 0019             __initialization 117C                __end_of_main 113A  
+                    ??_main 000F               __activetblptr 000002                      _ACTCON 000FB5  
+                    _ANSELA 000F5B                      _ANSELB 000F5C                      _ANSELC 000F5D  
+                    _RCREG1 000FAE                      _OSCCON 000FD3                      _SPBRG1 000FAF  
+                    _TXREG1 000FAD            __end_of_high_ISR 1052           __end_of_UART_Init 11FA  
+       __size_of_UART_Write 0010                      clear_0 1184                      clear_1 1196  
+                    _status 0015                      _strlen 113A                __mediumconst 0000  
+                    tblptrh 000FF7                      tblptrl 000FF6                      tblptru 000FF8  
+                __accesstop 0060     __end_of__initialization 119C               ___rparam_used 000001  
+           _init_interrupts 11FA              __pcstackCOMRAM 0001          __size_of_init_chip 002C  
+                   ?_strlen 0003                     _OSCCON2 000FD2                ??_UART_Write 0003  
+                   _OSCTUNE 000F9B                     _UART_RX 0014                   ?_high_ISR 0001  
+   __end_of_init_interrupts 1212                     __Hparam 0000                     __Lparam 0000  
+        __end_of_UART_Write 1222                __psmallconst 1056                     __pcinit 117C  
+                   __ramtop 0800                     __ptext0 10D4                     __ptext1 11FA  
+                   __ptext2 11AA                     __ptext3 106C                     __ptext4 113A  
+                   __ptext5 1212                     __ptext6 11D6             __size_of_strlen 0042  
+         __end_of_init_chip 11D6                  ??_high_ISR 0001        end_of_initialization 119C  
+             __Lmediumconst 0000                     postdec1 000FE5                     postinc0 000FEE  
+                   strlen@a 0005                     strlen@s 0003                   _UART_Init 11D6  
+                 _PORTBbits 000F81              UART_Write@data 0003                   _TRISAbits 000F92  
+                 _TRISBbits 000F93                   _TRISCbits 000F94       UART_Write_String@size 000D  
+          ?_init_interrupts 0001                   _RX_buffer 060C                  ?_UART_Init 0001  
+            __end_of_strlen 117C         start_initialization 117C                    ??_strlen 0005  
+               __pbssBIGRAM 060C                 __pbssCOMRAM 0010           __size_of_high_ISR 004A  
+                 __pintcode 1008                 ??_UART_Init 0003                 __smallconst 1056  
+                 _init_chip 11AA                    _IOCBbits 000F86                    _LATAbits 000F89  
+                  _IPR1bits 000F9F                    _PIE1bits 000F9D                    _PIR1bits 000F9E  
+                  _RCONbits 000FD0                  ?_init_chip 0001                 _INTCON2bits 000FF1  
+                  __Hrparam 0000                    __Lrparam 0000                  _ANSELBbits 000F5C  
+         _UART_Write_String 106C          ?_UART_Write_String 0007                    _high_ISR 1008  
+       ??_UART_Write_String 0009               __size_of_main 0066                    _expected 0012  
+  __size_of_init_interrupts 0018                    int$flags 0018   __end_of_UART_Write_String 10D4  
+                _INTCONbits 000FF2                 ??_init_chip 0003                    intlevel2 0000  
+                _RCSTA1bits 000FAB          UART_Write_String@i 000B                  _UART_Write 1212  
