@@ -7713,6 +7713,144 @@ void SYSTEM_Initialize(void);
 void OSCILLATOR_Initialize(void);
 # 25 "main_ble.c" 2
 
+# 1 "C:\\Program Files (x86)\\Microchip\\xc8\\v2.05\\pic\\include\\c99\\stdio.h" 1 3
+# 24 "C:\\Program Files (x86)\\Microchip\\xc8\\v2.05\\pic\\include\\c99\\stdio.h" 3
+# 1 "C:\\Program Files (x86)\\Microchip\\xc8\\v2.05\\pic\\include\\c99\\bits/alltypes.h" 1 3
+# 10 "C:\\Program Files (x86)\\Microchip\\xc8\\v2.05\\pic\\include\\c99\\bits/alltypes.h" 3
+typedef void * va_list[1];
+
+
+
+
+typedef void * __isoc_va_list[1];
+# 145 "C:\\Program Files (x86)\\Microchip\\xc8\\v2.05\\pic\\include\\c99\\bits/alltypes.h" 3
+typedef long ssize_t;
+# 254 "C:\\Program Files (x86)\\Microchip\\xc8\\v2.05\\pic\\include\\c99\\bits/alltypes.h" 3
+typedef long long off_t;
+# 407 "C:\\Program Files (x86)\\Microchip\\xc8\\v2.05\\pic\\include\\c99\\bits/alltypes.h" 3
+typedef struct _IO_FILE FILE;
+# 24 "C:\\Program Files (x86)\\Microchip\\xc8\\v2.05\\pic\\include\\c99\\stdio.h" 2 3
+# 52 "C:\\Program Files (x86)\\Microchip\\xc8\\v2.05\\pic\\include\\c99\\stdio.h" 3
+typedef union _G_fpos64_t {
+ char __opaque[16];
+ double __align;
+} fpos_t;
+
+extern FILE *const stdin;
+extern FILE *const stdout;
+extern FILE *const stderr;
+
+
+
+
+
+FILE *fopen(const char *restrict, const char *restrict);
+FILE *freopen(const char *restrict, const char *restrict, FILE *restrict);
+int fclose(FILE *);
+
+int remove(const char *);
+int rename(const char *, const char *);
+
+int feof(FILE *);
+int ferror(FILE *);
+int fflush(FILE *);
+void clearerr(FILE *);
+
+int fseek(FILE *, long, int);
+long ftell(FILE *);
+void rewind(FILE *);
+
+int fgetpos(FILE *restrict, fpos_t *restrict);
+int fsetpos(FILE *, const fpos_t *);
+
+size_t fread(void *restrict, size_t, size_t, FILE *restrict);
+size_t fwrite(const void *restrict, size_t, size_t, FILE *restrict);
+
+int fgetc(FILE *);
+int getc(FILE *);
+int getchar(void);
+int ungetc(int, FILE *);
+
+int fputc(int, FILE *);
+int putc(int, FILE *);
+int putchar(int);
+
+char *fgets(char *restrict, int, FILE *restrict);
+
+char *gets(char *);
+
+
+int fputs(const char *restrict, FILE *restrict);
+int puts(const char *);
+
+
+#pragma printf_check(printf) const
+#pragma printf_check(vprintf) const
+#pragma printf_check(sprintf) const
+#pragma printf_check(snprintf) const
+#pragma printf_check(vsprintf) const
+#pragma printf_check(vsnprintf) const
+
+
+int printf(const char *restrict, ...);
+int fprintf(FILE *restrict, const char *restrict, ...);
+int sprintf(char *restrict, const char *restrict, ...);
+int snprintf(char *restrict, size_t, const char *restrict, ...);
+
+int vprintf(const char *restrict, __isoc_va_list);
+int vfprintf(FILE *restrict, const char *restrict, __isoc_va_list);
+int vsprintf(char *restrict, const char *restrict, __isoc_va_list);
+int vsnprintf(char *restrict, size_t, const char *restrict, __isoc_va_list);
+
+int scanf(const char *restrict, ...);
+int fscanf(FILE *restrict, const char *restrict, ...);
+int sscanf(const char *restrict, const char *restrict, ...);
+int vscanf(const char *restrict, __isoc_va_list);
+int vfscanf(FILE *restrict, const char *restrict, __isoc_va_list);
+int vsscanf(const char *restrict, const char *restrict, __isoc_va_list);
+
+void perror(const char *);
+
+int setvbuf(FILE *restrict, char *restrict, int, size_t);
+void setbuf(FILE *restrict, char *restrict);
+
+char *tmpnam(char *);
+FILE *tmpfile(void);
+
+
+
+
+FILE *fmemopen(void *restrict, size_t, const char *restrict);
+FILE *open_memstream(char **, size_t *);
+FILE *fdopen(int, const char *);
+FILE *popen(const char *, const char *);
+int pclose(FILE *);
+int fileno(FILE *);
+int fseeko(FILE *, off_t, int);
+off_t ftello(FILE *);
+int dprintf(int, const char *restrict, ...);
+int vdprintf(int, const char *restrict, __isoc_va_list);
+void flockfile(FILE *);
+int ftrylockfile(FILE *);
+void funlockfile(FILE *);
+int getc_unlocked(FILE *);
+int getchar_unlocked(void);
+int putc_unlocked(int, FILE *);
+int putchar_unlocked(int);
+ssize_t getdelim(char **restrict, size_t *restrict, int, FILE *restrict);
+ssize_t getline(char **restrict, size_t *restrict, FILE *restrict);
+int renameat(int, const char *, int, const char *);
+char *ctermid(char *);
+
+
+
+
+
+
+
+char *tempnam(const char *, const char *);
+# 26 "main_ble.c" 2
+
 # 1 "C:\\Program Files (x86)\\Microchip\\xc8\\v2.05\\pic\\include\\c99\\string.h" 1 3
 # 25 "C:\\Program Files (x86)\\Microchip\\xc8\\v2.05\\pic\\include\\c99\\string.h" 3
 # 1 "C:\\Program Files (x86)\\Microchip\\xc8\\v2.05\\pic\\include\\c99\\bits/alltypes.h" 1 3
@@ -7768,33 +7906,52 @@ size_t strxfrm_l (char *restrict, const char *restrict, size_t, locale_t);
 
 
 void *memccpy (void *restrict, const void *restrict, int, size_t);
-# 26 "main_ble.c" 2
+# 27 "main_ble.c" 2
 
 
 
-char response;
-char BLE_ACK;
+int ID = 0;
+char name[50] = "SENSOR";
+volatile char status;
+
+char RX_buffer[500];
+int ix = 0;
+
+char cycle = 0;
+char drdy = 0;
+
 char debug;
-char RX_buffer[200];
+
+char og;
+extern unsigned char __resetbits;
 
 
-void UART_Init();
+void UART_Init(void);
 void UART_Write(char data);
 void UART_Write_String(char *buffer);
+char RN4870_changeName(char *name);
+int packetHandler();
+void spi_init();
+void spi_send(char data);
+char spi_read();
+short int read_MAX31856_temp();
+short int convertTemp(char byte2, char byte1);
+char init_MAX31856();
 
 void __attribute__((picinterrupt(("high_priority")))) high_ISR(void)
 {
+   if(PIR1bits.SSPIF == 1){
+        drdy = 1;
+
+        PIR1bits.SSPIF = 0;
+   }
    if (PIR1bits.RCIF == 1){
         if(debug){
            LATAbits.LA1 = 1;
         }
-       BLE_ACK = 1;
-       do{
-           response = RCREG1;
-           RX_buffer[strlen(RX_buffer)] = response;
-       }while(response != ((void*)0));
-
-
+        RX_buffer[ix] = RCREG1;
+        ix++;
+# 86 "main_ble.c"
    }
 }
 
@@ -7803,36 +7960,38 @@ void __attribute__((picinterrupt(("high_priority")))) high_ISR(void)
 
 void main(void)
 {
+    volatile char status = 0;
+    og = PORTCbits.RC0;
+
 
     SYSTEM_Initialize();
+
+    spi_init();
     UART_Init();
 
-    TRISAbits.RA1 = 0;
-    TRISBbits.RB0 = 0;
-    TRISBbits.RB1 = 0;
-    TRISBbits.RB2 = 0;
+    _delay(100000);
 
-    _delay(1000);
-
-    UART_Write_String("$$$");
-    while(!BLE_ACK);
-    if(RX_buffer == "CMD"){
-        debug = 1;
-    }
-
-    UART_Write_String("SS,C0\r");
-    while(!BLE_ACK);
-
-    UART_Write_String("S-,BLEatles\r");
-    while(!BLE_ACK);
-
-    UART_Write_String("R,1\r");
-    while(!BLE_ACK);
 
     debug = 1;
+    TRISAbits.RA1 = 0;
+    TRISBbits.RB3 = 0;
+    TRISBbits.RB4 = 0;
+    TRISBbits.RB5 = 0;
+    TRISCbits.RC0 = 1;
+
+
+    UART_Write_String("Start\n");
+
     while (1)
     {
-# 97 "main_ble.c"
+
+        status = packetHandler();
+
+
+
+
+
+
     }
 }
 
@@ -7842,12 +8001,7 @@ void UART_Init(void){
     TXSTA1bits.BRGH = 1;
     BAUDCON1bits.BRG16 = 1;
     SPBRG1 = 34;
-
-
-
-
-
-
+# 146 "main_ble.c"
     TRISCbits.RC6 = 1;
     TRISCbits.RC7 = 1;
 
@@ -7868,12 +8022,10 @@ void UART_Init(void){
 }
 
 void UART_Write(char data){
-    TRISBbits.RB4 = 0;
-    LATBbits.LB4 = 0;
+
 
     while(!TXSTA1bits.TRMT);
     TXREG1 = data;
-    BLE_ACK = 0;
 }
 
 void UART_Write_String(char *buffer){
@@ -7881,4 +8033,256 @@ void UART_Write_String(char *buffer){
     for(int i = 0 ; i < size ; i++){
       UART_Write(buffer[i]);
     }
+}
+
+char RN4870_changeName(char *name){
+
+    UART_Write_String("$$$");
+    unsigned long count = 0;
+    while(strstr(RX_buffer,"CMD")==((void*)0)){
+        count++;
+        if(count>75000){
+            UART_Write_String("$$$");
+            count = 0;
+        }
+    }
+
+    memset(RX_buffer,0,strlen(RX_buffer));
+    ix = 0;
+
+    UART_Write_String("SS,C0\r");
+    count = 0;
+    while(strstr(RX_buffer,"AOK")==((void*)0)){
+        count++;
+        if(count>75000){
+            UART_Write_String("SS,C0\r");
+            count = 0;
+        }
+    }
+
+    memset(RX_buffer,0,strlen(RX_buffer));
+    ix = 0;
+
+    UART_Write_String("S-,");
+    UART_Write_String(name);
+    UART_Write_String("\r");
+    count = 0;
+    while(strstr(RX_buffer,"AOK")==((void*)0)){
+        count++;
+        if(count>75000){
+            UART_Write_String("S-,");
+            UART_Write_String(name);
+            UART_Write_String("\r");
+            count = 0;
+        }
+    }
+
+    memset(RX_buffer,0,strlen(RX_buffer));
+    ix = 0;
+
+    UART_Write_String("R,1\r");
+    count = 0;
+    while(strstr(RX_buffer,"Rebooting")==((void*)0)){
+        count++;
+        if(count>75000){
+            UART_Write_String("R,1\r");
+            count = 0;
+        }
+    }
+
+    memset(RX_buffer,0,strlen(RX_buffer));
+    ix = 0;
+
+    return 1;
+}
+
+int packetHandler(){
+
+
+
+
+    if(strstr(RX_buffer,"hey")!=((void*)0)){
+        char answer[50];
+        UART_Write_String("hello\r");
+        UART_Write_String(answer);
+
+
+        memset(RX_buffer,0,strlen(RX_buffer));
+        ix = 0;
+        return 1;
+    }
+    else if(strstr(RX_buffer,"hello there")!=((void*)0)){
+        UART_Write_String("General Kenobi\n");
+
+
+        memset(RX_buffer,0,strlen(RX_buffer));
+        ix = 0;
+        return 1;
+    }
+    else if(strstr(RX_buffer,"getTemp")!=((void*)0)){
+
+        status = init_MAX31856();
+
+        volatile short int temp = read_MAX31856_temp();
+
+        char answer[20];
+        sprintf(answer,"%d:%i\r",ID,temp);
+        UART_Write_String(answer);
+
+
+        memset(RX_buffer,0,strlen(RX_buffer));
+        ix = 0;
+
+        unsigned long count = 0;
+        while(strstr(RX_buffer,"tempACK")==((void*)0)){
+            count++;
+            if(count>75000){
+                UART_Write_String(answer);
+
+                count = 0;
+            }
+        }
+
+
+
+        memset(RX_buffer,0,strlen(RX_buffer));
+        ix = 0;
+        return 1;
+    }
+    else if(strstr(RX_buffer,"changeID:")!=((void*)0)){
+        char *pos = strstr(RX_buffer,"changeID:") + strlen("changeID:");
+        char *end;
+        ID = strtol(pos,&end,10);
+
+        char answer[50];
+        sprintf(answer,"changeID:IDACK\r");
+        UART_Write_String(answer);
+
+
+        memset(RX_buffer,0,strlen(RX_buffer));
+        ix = 0;
+        return 1;
+    }
+    else if(strstr(RX_buffer,"changeName:")!=((void*)0)){
+        char *txt = strstr(RX_buffer,"changeName:") + strlen("changeName:");
+        sprintf(name,"%s%d",txt,ID);
+
+
+        char answer[50];
+        sprintf(answer,"changeName:nameACK\r");
+        UART_Write_String(answer);
+
+        _delay((unsigned long)((100)*(16000000/4000.0)));
+
+
+        RN4870_changeName(name);
+
+        return 1;
+    }
+    return 0;
+}
+
+void spi_init(){
+    TRISAbits.RA5 = 0;
+    TRISBbits.RB0 = 1;
+    TRISBbits.RB1 = 0;
+    TRISBbits.RB3 = 0;
+    TRISBbits.RB4 = 1;
+
+
+    ANSELAbits.ANSA5 = 0;
+    ANSELB = 0x24;
+
+    LATAbits.LA5 = 1;
+
+    INTCONbits.GIE = 0;
+
+    PMD1bits.MSSPMD = 0;
+    RCONbits.IPEN = 1;
+    IPR1bits.SSPIP = 1;
+    PIE1bits.SSPIE = 1;
+    SSP1CON1bits.CKP = 0;
+    SSP1CON1bits.SSPM = 0b0010;
+
+    PIR1bits.SSPIF = 0;
+
+    SSP1CON1bits.SSPEN = 1;
+    INTCONbits.GIE = 1;
+}
+
+void spi_send(char data){
+    LATAbits.LA5 = 0;
+    SSP1BUF = data;
+}
+
+char spi_read(){
+    return SSP1BUF;
+}
+
+short int read_MAX31856_temp(){
+
+    while(PORTBbits.RB4);
+    spi_send(0x0C);
+    while(!drdy);
+    drdy = 0;
+    volatile char value = spi_read();
+
+
+    spi_send(0xFF);
+    while(!drdy);
+    drdy = 0;
+    volatile char byte2 = spi_read();
+
+
+    spi_send(0xFF);
+    while(!drdy);
+    drdy = 0;
+    volatile char byte1 = spi_read();
+
+
+    spi_send(0xFF);
+    while(!drdy);
+    drdy = 0;
+    volatile char byte0 = spi_read();
+
+    LATAbits.LA5 = 1;
+
+    return convertTemp(byte2, byte1);
+}
+
+short int convertTemp(char byte2, char byte1){
+    volatile char result = byte2 & (0b10000000);
+    volatile char sign = 0;
+
+    if(result != 0){
+        sign = 1;
+        byte2 = byte2 & (0b01111111);
+    }
+
+    volatile short int temp = (byte2<<4) | (byte1>>4);
+    if(sign){
+        temp = temp - 2048;
+    }
+
+    return temp;
+}
+
+char init_MAX31856(){
+
+    spi_send(0x81);
+    while(!drdy);
+    drdy = 0;
+    spi_send(0x43);
+    while(!drdy);
+    drdy = 0;
+    LATAbits.LA5 = 1;
+    spi_send(0x80);
+    while(!drdy);
+    drdy = 0;
+    spi_send(0x41);
+    while(!drdy);
+    drdy = 0;
+
+    LATAbits.LA5 = 1;
+    return 1;
 }

@@ -7912,16 +7912,18 @@ void *memccpy (void *restrict, const void *restrict, int, size_t);
 
 int ID = 0;
 char name[50] = "SENSOR";
+volatile char status;
 
-char UART_RX;
 char RX_buffer[500];
-char *expected;
 int ix = 0;
-char UART_RN4870_mode = 1;
+
+char cycle = 0;
+char drdy = 0;
 
 char debug;
 
 char og;
+extern unsigned char __resetbits;
 
 
 void UART_Init(void);
@@ -7929,28 +7931,27 @@ void UART_Write(char data);
 void UART_Write_String(char *buffer);
 char RN4870_changeName(char *name);
 int packetHandler();
+void spi_init();
+void spi_send(char data);
+char spi_read();
+short int read_MAX31856_temp();
+short int convertTemp(char byte2, char byte1);
+char init_MAX31856();
 
 void __attribute__((picinterrupt(("high_priority")))) high_ISR(void)
 {
+   if(PIR1bits.SSPIF == 1){
+        drdy = 1;
+
+        PIR1bits.SSPIF = 0;
+   }
    if (PIR1bits.RCIF == 1){
         if(debug){
            LATAbits.LA1 = 1;
         }
         RX_buffer[ix] = RCREG1;
         ix++;
-
-
-
-
-
-        if(UART_RN4870_mode){
-            if(strstr(RX_buffer,expected)!=((void*)0)){
-                UART_RX = 1;
-                ix = 0;
-            }
-        }
-
-
+# 86 "main_ble.c"
    }
 }
 
@@ -7964,6 +7965,8 @@ void main(void)
 
 
     SYSTEM_Initialize();
+
+    spi_init();
     UART_Init();
 
     _delay(100000);
@@ -7985,30 +7988,20 @@ void main(void)
         status = packetHandler();
 
 
-        LATBbits.LB5 = 1;
-        _delay(1000000);
-        LATBbits.LB5 = 0;
-        _delay(1000000);
+
+
+
+
     }
 }
 
 void UART_Init(void){
     TXSTA1bits.SYNC = 0;
     RCSTA1bits.SPEN = 1;
-
-
-
-
-
-  TXSTA1bits.BRGH = 1;
-  BAUDCON1bits.BRG16 = 0;
-  SPBRG1 = 25;
-
-
-
-
-
-
+    TXSTA1bits.BRGH = 1;
+    BAUDCON1bits.BRG16 = 1;
+    SPBRG1 = 34;
+# 146 "main_ble.c"
     TRISCbits.RC6 = 1;
     TRISCbits.RC7 = 1;
 
@@ -8033,7 +8026,6 @@ void UART_Write(char data){
 
     while(!TXSTA1bits.TRMT);
     TXREG1 = data;
-    UART_RX = 0;
 }
 
 void UART_Write_String(char *buffer){
@@ -8044,42 +8036,75 @@ void UART_Write_String(char *buffer){
 }
 
 char RN4870_changeName(char *name){
-    UART_RN4870_mode = 1;
 
     UART_Write_String("$$$");
-    expected = "CMD";
-    while(!UART_RX){
-        if(PORTCbits.RC0 != og && debug){
-            UART_Write_String(RX_buffer);
-            UART_Write_String("!=");
-            UART_Write_String(expected);
-            UART_Write_String("|");
-            _delay(100000);
+    unsigned long count = 0;
+    while(strstr(RX_buffer,"CMD")==((void*)0)){
+        count++;
+        if(count>75000){
+            UART_Write_String("$$$");
+            count = 0;
         }
     }
 
+    memset(RX_buffer,0,strlen(RX_buffer));
+    ix = 0;
+
     UART_Write_String("SS,C0\r");
-    expected = "AOK";
-    while(!UART_RX);
+    count = 0;
+    while(strstr(RX_buffer,"AOK")==((void*)0)){
+        count++;
+        if(count>75000){
+            UART_Write_String("SS,C0\r");
+            count = 0;
+        }
+    }
+
+    memset(RX_buffer,0,strlen(RX_buffer));
+    ix = 0;
 
     UART_Write_String("S-,");
     UART_Write_String(name);
     UART_Write_String("\r");
-    expected = "AOK";
-    while(!UART_RX);
+    count = 0;
+    while(strstr(RX_buffer,"AOK")==((void*)0)){
+        count++;
+        if(count>75000){
+            UART_Write_String("S-,");
+            UART_Write_String(name);
+            UART_Write_String("\r");
+            count = 0;
+        }
+    }
+
+    memset(RX_buffer,0,strlen(RX_buffer));
+    ix = 0;
 
     UART_Write_String("R,1\r");
-    expected = "Rebooting";
-    while(!UART_RX);
+    count = 0;
+    while(strstr(RX_buffer,"Rebooting")==((void*)0)){
+        count++;
+        if(count>75000){
+            UART_Write_String("R,1\r");
+            count = 0;
+        }
+    }
 
-    UART_RN4870_mode = 0;
+    memset(RX_buffer,0,strlen(RX_buffer));
+    ix = 0;
 
     return 1;
 }
 
 int packetHandler(){
+
+
+
+
     if(strstr(RX_buffer,"hey")!=((void*)0)){
-        UART_Write_String("hallo\n");
+        char answer[50];
+        UART_Write_String("hello\r");
+        UART_Write_String(answer);
 
 
         memset(RX_buffer,0,strlen(RX_buffer));
@@ -8094,11 +8119,30 @@ int packetHandler(){
         ix = 0;
         return 1;
     }
-    else if(strstr(RX_buffer,"temp")!=((void*)0)){
-        short int temp = 25;
+    else if(strstr(RX_buffer,"getTemp")!=((void*)0)){
+
+        status = init_MAX31856();
+
+        volatile short int temp = read_MAX31856_temp();
+
         char answer[20];
-        sprintf(answer,"The temperature is %i\r",temp);
+        sprintf(answer,"%d:%i\r",ID,temp);
         UART_Write_String(answer);
+
+
+        memset(RX_buffer,0,strlen(RX_buffer));
+        ix = 0;
+
+        unsigned long count = 0;
+        while(strstr(RX_buffer,"tempACK")==((void*)0)){
+            count++;
+            if(count>75000){
+                UART_Write_String(answer);
+
+                count = 0;
+            }
+        }
+
 
 
         memset(RX_buffer,0,strlen(RX_buffer));
@@ -8111,7 +8155,6 @@ int packetHandler(){
         ID = strtol(pos,&end,10);
 
         char answer[50];
-
         sprintf(answer,"changeID:IDACK\r");
         UART_Write_String(answer);
 
@@ -8133,8 +8176,113 @@ int packetHandler(){
 
 
         RN4870_changeName(name);
-# 262 "main_ble.c"
+
         return 1;
     }
     return 0;
+}
+
+void spi_init(){
+    TRISAbits.RA5 = 0;
+    TRISBbits.RB0 = 1;
+    TRISBbits.RB1 = 0;
+    TRISBbits.RB3 = 0;
+    TRISBbits.RB4 = 1;
+
+
+    ANSELAbits.ANSA5 = 0;
+    ANSELB = 0x24;
+
+    LATAbits.LA5 = 1;
+
+    INTCONbits.GIE = 0;
+
+    PMD1bits.MSSPMD = 0;
+    RCONbits.IPEN = 1;
+    IPR1bits.SSPIP = 1;
+    PIE1bits.SSPIE = 1;
+    SSP1CON1bits.CKP = 0;
+    SSP1CON1bits.SSPM = 0b0010;
+
+    PIR1bits.SSPIF = 0;
+
+    SSP1CON1bits.SSPEN = 1;
+    INTCONbits.GIE = 1;
+}
+
+void spi_send(char data){
+    LATAbits.LA5 = 0;
+    SSP1BUF = data;
+}
+
+char spi_read(){
+    return SSP1BUF;
+}
+
+short int read_MAX31856_temp(){
+
+    while(PORTBbits.RB4);
+    spi_send(0x0C);
+    while(!drdy);
+    drdy = 0;
+    volatile char value = spi_read();
+
+
+    spi_send(0xFF);
+    while(!drdy);
+    drdy = 0;
+    volatile char byte2 = spi_read();
+
+
+    spi_send(0xFF);
+    while(!drdy);
+    drdy = 0;
+    volatile char byte1 = spi_read();
+
+
+    spi_send(0xFF);
+    while(!drdy);
+    drdy = 0;
+    volatile char byte0 = spi_read();
+
+    LATAbits.LA5 = 1;
+
+    return convertTemp(byte2, byte1);
+}
+
+short int convertTemp(char byte2, char byte1){
+    volatile char result = byte2 & (0b10000000);
+    volatile char sign = 0;
+
+    if(result != 0){
+        sign = 1;
+        byte2 = byte2 & (0b01111111);
+    }
+
+    volatile short int temp = (byte2<<4) | (byte1>>4);
+    if(sign){
+        temp = temp - 2048;
+    }
+
+    return temp;
+}
+
+char init_MAX31856(){
+
+    spi_send(0x81);
+    while(!drdy);
+    drdy = 0;
+    spi_send(0x43);
+    while(!drdy);
+    drdy = 0;
+    LATAbits.LA5 = 1;
+    spi_send(0x80);
+    while(!drdy);
+    drdy = 0;
+    spi_send(0x41);
+    while(!drdy);
+    drdy = 0;
+
+    LATAbits.LA5 = 1;
+    return 1;
 }

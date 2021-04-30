@@ -3,15 +3,15 @@
   <executable name="dist/default/production\BLE_test.X.production.hex">
     <memory name="program">
       <units>bytes</units>
-      <length>28672</length>
-      <used>6646</used>
-      <free>22026</free>
+      <length>32768</length>
+      <used>6993</used>
+      <free>25775</free>
     </memory>
     <memory name="data">
       <units>bytes</units>
       <length>2048</length>
-      <used>881</used>
-      <free>1167</free>
+      <used>906</used>
+      <free>1142</free>
     </memory>
   </executable>
 </project>
